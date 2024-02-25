@@ -87,9 +87,9 @@ function pageLoaded() {
     const data = {
       page_title: document.getElementById('page_heading').innerHTML,
       date: date,
-      work_description: document.getElementById('work_description').value,
-      experience_description: document.getElementById('experience_description').value,
-      competency: document.getElementById('competency').value,
+      customer_name: document.getElementById('customer_name').value,
+      description: document.getElementById('description').value,
+      time: document.getElementById('time').value,
     };
   
     fetch('/insert_data', {
@@ -134,10 +134,10 @@ function pageLoaded() {
       })
     .then(data => {
         // Handle the retrieved data here
-        document.getElementById('time').innerText = data[3] + ':00';
-        document.getElementById('user_id').innerText = data[1];
-        document.getElementById('description').innerText = data[2];
-        console.log(data);
+        document.getElementById('time').innerText = data[0][3];
+        document.getElementById('customer_name').innerText = data[0][1];
+        document.getElementById('description').innerText = data[0][2];
+        console.log(data[1]);
   
     })
     .catch(error => {

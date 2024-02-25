@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, jsonify
 
-from connection import select
+from connection import select, insert
 
 app = Flask(__name__)
 
@@ -26,7 +26,7 @@ def retrieve_data():
         
         if data is not None:  # Check if data is not None (i.e., row exists)
             
-            return jsonify(data[0])
+            return jsonify(data)
         else:
             
             return jsonify('')  # Return an empty string if the row doesn't exist
@@ -39,11 +39,11 @@ def insert_data():
         data = request.get_json()
 
         date = data.get('date')
-        work_description = data.get('work_description')
-        experience_description = data.get('experience_description')
-        competency = data.get('competency')
+        customer_name = data.get('customer_name')
+        description = data.get('description')
+        time = data.get('time')
 
-        insert(date, work_description, experience_description, competency)
+        insert(date, customer_name, description, time)
         return jsonify({'status': 'success'})
         
 

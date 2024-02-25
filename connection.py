@@ -13,13 +13,13 @@ def insert(date, customer_name, description, time):
     
     try:
         query = f"""
-        INSERT INTO diary_entry (date, text1, text2, text3)
+        INSERT INTO day_entries (date, customer_name, description, time)
         VALUES ('{date}', '{customer_name}', '{description}', '{time}')
         ON CONFLICT (date)
         DO UPDATE SET
-        text1 = EXCLUDED.text1,
-        text2 = EXCLUDED.text2,
-        text3 = EXCLUDED.text3;
+        customer_name = EXCLUDED.customer_name,
+        description = EXCLUDED.description,
+        time = EXCLUDED.time;
         """
         cursor.execute(query)
         connection.commit()
