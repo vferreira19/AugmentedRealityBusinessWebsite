@@ -35,17 +35,23 @@
   <div id="inputs_div">
     <script>
       let start = 9;
+      const names = ['Maria', 'Paula', 'Beatriz', 'Ana', 'Fernanda', 'Sandra'];
   
       for(let i = 0; i <= 11; i++){
-        var textarea = document.createElement("textarea");
-        textarea.placeholder = 'Type here...';
         var p = document.createElement('p');
-        
+        p.classList = 'booking_time'
         p.id = 'title' + (i + 1);
         p.textContent = start + ":00";start ++;
+
+        var customer = document.createElement('p');
+        customer.textContent = names[i];
+
+        var description = document.createElement("textarea");
+        description.placeholder = 'Type here...';
         
         document.getElementById('inputs_div').appendChild(p);
-        document.getElementById('inputs_div').appendChild(textarea);
+        document.getElementById('inputs_div').appendChild(customer);
+        document.getElementById('inputs_div').appendChild(description);
         
       }
     </script>

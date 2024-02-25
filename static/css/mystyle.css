@@ -156,8 +156,11 @@ p{
     background-color: red;
     text-decoration: underline;
 }
-
-
+.booking_time{
+    font-family: "Alegreya", "sans-serif";
+    font-size: medium;
+    
+}
 textarea{
     background-color:#5692e1;
     border: 4px solid black;
