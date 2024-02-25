@@ -1,0 +1,231 @@
+:root {
+    --mycol: grey;
+    --maincol: black;
+    --full: 100%;
+    --hoverclr: #5692e1;
+  }
+h1{
+    font-family: "Alegreya", sans-serif;
+    font-size: xx-large;
+    font-weight: bold;
+}
+h2{
+    font-family: "Alegreya", sans-serif;
+    font-size: xx-large;
+    font-weight: bold;
+}
+body{
+    background-color: white;
+    font-family: "Alegreya", sans-serif;
+    font-size: medium;
+    font-weight: regular;
+}
+p{
+    font-family: "Alegreya", sans-serif;
+    font-size: large;
+    font-weight: bold;
+}
+
+#calendar {
+    width: var(--full);
+    max-width: 900px;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+}
+
+table {
+    width: var(--full);
+    border-collapse: collapse;
+}
+
+
+.calendar-btn {
+    float: right;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 10px 10px;
+
+}
+
+.selected {
+    background-color: var(--mycol);
+}
+
+/* Each square in the calendar  */
+td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 18px;
+    cursor:pointer;  
+}
+
+
+/* Current day of the month square*/
+.today {
+    background-color: rgb(0, 68, 164);
+    color: white;
+}
+
+#icon{
+    color: white;
+    position: absolute;
+    top: 5px;
+    left: 15px;
+}
+
+#page_heading{
+    color: white;
+    background-color: black;
+    padding-bottom: 20px;
+    text-align: center;
+
+
+}
+
+a{
+    text-decoration: none;
+}
+
+#diary_header{
+
+    min-height: 50px;
+    font-size: xx-large;
+    text-align: center;
+    
+}
+#diaryEntry {
+
+    min-height: 50px;
+    text-align: center;
+    padding: 2%;
+}
+
+#buttons_div{
+    display: flex;
+    font-family: "Alegreya", "sans-serif";
+    font-size: medium;
+    font-weight: bold;
+    padding: 30px;
+    
+}
+
+#submitbtn, #removebtn{
+    background-color: white;
+    font-size: large;
+    padding: 20px 30px;
+    margin: auto;
+}
+#submitbtn{
+    border: solid rgb(8, 195, 8);
+    border-width: 3px;
+    border-radius: 5px;
+
+}
+#removebtn{
+    border: solid red;
+    border-width: 3px;
+    border-radius: 5px;
+}
+#submitbtn:active {background-color:rgb(8, 195, 8);}
+#submitbtn:hover {background-color: rgb(8, 195, 8);}
+
+
+
+#removebtn:active{background-color: red;}
+#removebtn:hover{background-color: red;}
+
+
+
+
+#inputs_title{
+    display: flex;
+}
+p{
+    margin:auto;
+}
+#inputs_div{
+    display: flex;
+    margin: auto;
+    font-family: "Alegreya", "sans-serif";
+    font-size: medium;
+
+    
+}
+
+#work_description:focus + #inputs_title #title1 {
+    background-color: red;
+    text-decoration: underline;
+}
+
+
+
+
+
+#work_description, #experience_description, #competency{
+    background-color:#5692e1;
+    border: 4px solid black;
+    border-radius: 5px;
+    margin: auto;
+    padding: 20px 40px;
+    text-align: justify;
+}
+
+/* The side navigation menu */
+.sidenav {
+    
+    height: var(--full);
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: var(--maincol);
+    overflow-x: hidden;
+    padding-top: 60px;
+    transition: 0.5s;
+}
+/* The navigation menu links */
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    display: block;
+    color: white;
+    transition: 0.3s;
+}
+
+#clearbtn, #share-btn{
+    color: white;
+}
+
+#clearbtn:hover{
+    color: --hoverclr;
+}
+#share-btn:hover{
+    color: --hoverclr;
+}
+#closeBtn:hover{
+    color: --hoverclr;
+}
+
+/* When you mouse over the navigation links, change their color */
+td:hover, .calendar-btn:hover  {
+    background-color: var(--hoverclr);
+}
+
+/* Position and style the close button (top right corner) */
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+@media (max-width: 500px){
+    
+}

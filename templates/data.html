@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/mystyle.css') }}">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia|Alegreya">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <meta charset="UTF-8">
+  <title>Barber $hop</title>
+
+</head>
+
+<body>
+  
+  <div id="page_top">
+    <span id="icon" class="fa fa-bars fa-2x"></span>
+
+    <a href="{{ url_for('home') }}">
+        <h1 id="page_heading">Barber $hop</h1>
+    </a>
+
+  </div>  
+  
+  <h2 id="diary_header"></h2>
+
+  <div id="diaryEntry">
+    <h2>No date selected</h2>
+    <p>Please select a date from the calendar above to view or add an entry</p>
+  </div><br>
+
+  
+  <div id="inputs_title">
+    <p id="title1">9AM</p>
+    <p id="title2">10AM</p>
+    <p id="title3">11AM</p>
+  </div>
+
+  <div id="inputs_div">
+
+    <textarea id="work_description" rows="10" cols="35"></textarea>
+    <textarea id="experience_description" rows="10" cols="35"></textarea>
+    <textarea id="competency" type="text" rows="10" cols="35"></textarea>
+    
+  </div>
+
+  <div id="buttons_div">
+    <button id="submitbtn"><i class="fa fa-check"></i></button>
+    <button id="removebtn"><i class="fa fa-trash"></i></button>
+  </div>
+
+
+  <div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" id='closeBtn'class="closebtn">&times;</a>
+    <a href="read_only.html">Read Only Mode</a>
+    <a id="share-btn">Share</a>
+  </div>
+
+
+
+  <div id="data-container" data-year="{{ year }}" data-month="{{ month }}" data-day="{{ day }}"></div>
+
+  <script src="{{ url_for('static', filename='js/data.js') }}"></script>
+
+</body>
+
+</html>
