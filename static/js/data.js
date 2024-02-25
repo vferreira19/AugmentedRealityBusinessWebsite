@@ -51,19 +51,10 @@ function pageLoaded() {
     removebtn.addEventListener('click', function() {
         deleteData(formattedDate)
     });
-   
-    // const clearbtn = document.getElementById('clearbtn');
-    // clearbtn.addEventListener('click', function() {
-    //     clearCalendar()
-    // });
-
-  
-    retrieveData(formattedDate)
-    
+    retrieveData(formattedDate)    
   }
   
   // Utility functions
-  
   
   function createInput(id, content, placeholder) {
     const input = document.createElement('textarea');
@@ -151,7 +142,6 @@ function pageLoaded() {
           
           var description = document.createElement('textarea');
           description.textContent = object[2];
-          description.id = 'description';
           rowContainer.appendChild(description);
           
           // Append the object container to the main container

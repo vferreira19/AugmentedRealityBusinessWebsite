@@ -40,7 +40,7 @@ def select(date):
         try:
             cursor.execute(sql.SQL("SELECT 1 FROM {} LIMIT 1").format(sql.Identifier('day_entries')))
         except UndefinedTable:
-            create_table()
+           
             connection.commit()
 
         # Your original select query
