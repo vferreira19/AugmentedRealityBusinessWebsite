@@ -33,17 +33,33 @@
   
 
   <div id="inputs_div">
-
-    <p id="title1">9AM</p>
-    <textarea id="work_description" rows="5" cols="35"></textarea>
-
+    <!-- <p id="title1">9AM</p>
     <p id="title2">10AM</p>
-    <textarea id="experience_description" rows="5" cols="35"></textarea>
+    <p id="title3">11AM</p> -->
 
-    <p id="title3">11AM</p>
-    <textarea id="competency" type="text" rows="5" cols="35"></textarea>
+    <!--
+    <textarea id="work_description" rows="5" cols="35"></textarea>
+    <textarea id="experience_description" rows="5" cols="35"></textarea>   
+    <textarea id="competency" type="text" rows="5" cols="35"></textarea> -->
   
   </div>
+
+  <script>
+    let start = 9;
+
+    for(let i = 0; i <= 11; i++){
+      var textarea = document.createElement("textarea");
+      textarea.placeholder = 'Type here...';
+      var p = document.createElement('p');
+      
+      p.id = 'title' + (i + 1);
+      p.textContent = start + ":00";start ++;
+      
+      document.getElementById('inputs_div').appendChild(p);
+      document.getElementById('inputs_div').appendChild(textarea);
+      
+    }
+  </script>
 
   <div id="buttons_div">
     <button id="submitbtn"><i class="fa fa-check"></i></button>

@@ -144,7 +144,7 @@ p{
     margin:auto;
 }
 #inputs_div{
-    display: inline-block;
+    display: grid;
     margin: auto;
     font-family: "Alegreya", "sans-serif";
     font-size: medium;
@@ -158,10 +158,7 @@ p{
 }
 
 
-
-
-
-#work_description, #experience_description, #competency{
+textarea{
     background-color:#5692e1;
     border: 4px solid black;
     border-radius: 5px;
