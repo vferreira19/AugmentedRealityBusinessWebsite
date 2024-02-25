@@ -140,15 +140,11 @@ a{
 
 
 
-
-#inputs_title{
-    display: flex;
-}
 p{
     margin:auto;
 }
 #inputs_div{
-    display: flex;
+    display: inline-block;
     margin: auto;
     font-family: "Alegreya", "sans-serif";
     font-size: medium;
