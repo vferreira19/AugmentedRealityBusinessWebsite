@@ -43,7 +43,7 @@ def insert_data():
         description = data.get('description')
         time = data.get('time')
 
-        insert(date, customer_name, description, time)
+        insert(date, time, customer_name, description)
         return jsonify({'status': 'success'})
         
 

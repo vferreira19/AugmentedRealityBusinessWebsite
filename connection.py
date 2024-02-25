@@ -44,7 +44,7 @@ def select(date):
             connection.commit()
 
         # Your original select query
-        query = f"SELECT date, customer_name, description, time FROM day_entries WHERE date='{date}'"
+        query = f"SELECT time, customer_name, description FROM day_entries WHERE date='{date}'ORDER BY time ASC"
         cursor.execute(query)
         result = cursor.fetchall()
 

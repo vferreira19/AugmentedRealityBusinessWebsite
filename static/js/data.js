@@ -36,7 +36,7 @@ function pageLoaded() {
   
     const header = document.getElementById('diary_header')
     header.innerHTML = date.toDateString();
-    // header.innerHTML = date.toDateString();
+  
     
 
   
@@ -133,17 +133,35 @@ function pageLoaded() {
         }
       })
     .then(data => {
-        // Handle the retrieved data here
-        document.getElementById('time').innerText = data[0][3];
-        document.getElementById('customer_name').innerText = data[0][1];
-        document.getElementById('description').innerText = data[0][2];
-        console.log(data[1]);
+      
+      var container = document.getElementById('inputs_div');
+      container.innerHTML = '';
   
-    })
+      // Iterate through each object in the 'data' array
+      data.forEach(function(object) {
+          var rowContainer = document.createElement('div');
+
+          var time = document.createElement('h3');
+          time.textContent = object[0]+ ':00';
+          rowContainer.appendChild(time);
+          
+          var customer = document.createElement('textarea');
+          customer.textContent = object[1];
+          rowContainer.appendChild(customer);
+          
+          var description = document.createElement('textarea');
+          description.textContent = object[2];
+          description.id = 'description';
+          rowContainer.appendChild(description);
+          
+          // Append the object container to the main container
+          container.appendChild(rowContainer);
+      });
+  })
     .catch(error => {
+        // Handle any errors that occur during the fetch
         console.error('Error:', error);
     });
-  }
   
   function deleteData(date){
         
@@ -173,4 +191,4 @@ function pageLoaded() {
   
   
   pageLoaded();
-  
+}
