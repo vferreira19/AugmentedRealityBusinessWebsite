@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, jsonify
 
-from connection import insert, select, delete, drop
+from connection import select
 
 app = Flask(__name__)
 

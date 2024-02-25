@@ -134,15 +134,10 @@ function pageLoaded() {
       })
     .then(data => {
         // Handle the retrieved data here
-        if (data.length >= 3) {
-          document.getElementById('work_description').value = data[0];
-          document.getElementById('experience_description').value = data[1];
-          document.getElementById('competency').value = data[2];
-        } else {
-          document.getElementById('work_description').value = '';
-          document.getElementById('experience_description').value = '';
-          document.getElementById('competency').value = '';
-        }
+        document.getElementById('time').innerText = data[3] + ':00';
+        document.getElementById('user_id').innerText = data[1];
+        document.getElementById('description').innerText = data[2];
+        console.log(data);
   
     })
     .catch(error => {
