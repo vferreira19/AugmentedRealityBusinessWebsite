@@ -15,11 +15,7 @@ def insert(date, customer_name, description, time):
         query = f"""
         INSERT INTO day_entries (date, customer_name, description, time)
         VALUES ('{date}', '{customer_name}', '{description}', '{time}')
-        ON CONFLICT (date)
-        DO UPDATE SET
-        customer_name = EXCLUDED.customer_name,
-        description = EXCLUDED.description,
-        time = EXCLUDED.time;
+    
         """
         cursor.execute(query)
         connection.commit()
