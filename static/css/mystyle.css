@@ -153,19 +153,21 @@ p{
     font-size: medium;
 }
 
-#work_description:focus + #inputs_title #title1 {
-    background-color: red;
-    text-decoration: underline;
-}
 .booking_time{
     font-family: "Alegreya", "sans-serif";
     font-size: medium;
     
 }
 
+.add{
+    display: block;
+}
 
 textarea {
-    border: none; /* Remove border */
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom:  solid rgb(50, 138, 237); /* Remove border */
     resize: none !important; /* Disable resizing */
     background-color: transparent; /* Make background transparent */
     font-family: inherit; /* Inherit font family */

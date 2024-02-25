@@ -49,21 +49,21 @@ def select(date):
         cursor.close()
         connection.close()
 
-# def delete(date):
+def delete(date, time):
 
-#     connection = create_connection()
-#     cursor = connection.cursor()
+    connection = create_connection()
+    cursor = connection.cursor()
 
-#     try:
+    try:
 
-#         query = f"DELETE FROM diary_entry WHERE date='{date}'"
-#         cursor.execute(query)
-#         connection.commit()
+        query = f"DELETE FROM day_entries WHERE date='{date}' and time='{time}'"
+        cursor.execute(query)
+        connection.commit()
 
-#         return 'data deleted'
-#     finally:
-#         cursor.close()
-#         connection.close()
+        return 'data deleted'
+    finally:
+        cursor.close()
+        connection.close()
 
 # def drop():
 #     connection = create_connection()

@@ -48,12 +48,50 @@ function pageLoaded() {
     });
 
     const removebtn = document.getElementById('removebtn');
+  
     removebtn.addEventListener('click', function() {
-        deleteData(formattedDate)
+      
+        deleteData(formattedDate, 18)
     });
+
+    
     retrieveData(formattedDate)    
   }
-  
+  function processData(data){
+    var container = document.getElementById('inputs_div');
+      container.innerHTML = '';
+      let index = 0;
+      // Iterate through each object in the 'data' array
+      data.forEach(function(object) {
+          const rowContainer = document.createElement('div');
+
+          const time = document.createElement('h2');
+          time.id = index+1;
+          time.textContent = object[0]+ ':00';
+          rowContainer.appendChild(time);
+          
+          const customer = document.createElement('textarea');
+          customer.textContent = object[1];
+          rowContainer.appendChild(customer);
+          
+          const description = document.createElement('textarea');
+          description.textContent = object[2];
+          rowContainer.appendChild(description);
+          
+          const delete_button = document.createElement('btn');
+          delete_button.textContent = 'button';
+          delete_button.addEventListener('click', function () {
+          
+            deleteData(date, object[0]);
+          });
+          rowContainer.appendChild(delete_button);
+
+          // Append the object container to the main container
+          container.appendChild(rowContainer);
+          
+      });
+      console.log()
+  }
   // Utility functions
   
   function createInput(id, content, placeholder) {
@@ -124,61 +162,39 @@ function pageLoaded() {
         }
       })
     .then(data => {
-      
-      var container = document.getElementById('inputs_div');
-      container.innerHTML = '';
-  
-      // Iterate through each object in the 'data' array
-      data.forEach(function(object) {
-          var rowContainer = document.createElement('div');
 
-          var time = document.createElement('h3');
-          time.textContent = object[0]+ ':00';
-          rowContainer.appendChild(time);
-          
-          var customer = document.createElement('textarea');
-          customer.textContent = object[1];
-          rowContainer.appendChild(customer);
-          
-          var description = document.createElement('textarea');
-          description.textContent = object[2];
-          rowContainer.appendChild(description);
-          
-          // Append the object container to the main container
-          container.appendChild(rowContainer);
-      });
+      processData(data);
   })
     .catch(error => {
         // Handle any errors that occur during the fetch
         console.error('Error:', error);
     });
   
-  function deleteData(date){
-        
-    const data = {
-  
-      date: date,
-  
-    };
-  
-    fetch('/delete_data', {
-      method: 'POST',
-      headers: {
-    'Content-Type': 'application/json',
-    },
-      body: JSON.stringify(data),
-    })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      return response.json();
-  })
-    .then(data => {   
-    })
-  }
-
-  
-  
   pageLoaded();
+
+}
+
+function deleteData(date, time){
+        
+  const data = {
+
+    date: date,
+    time: time,
+  };
+
+  fetch('/delete_data', {
+    method: 'POST',
+    headers: {
+  'Content-Type': 'application/json',
+  },
+    body: JSON.stringify(data),
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    return response.json();
+})
+  .then(data => {   
+  })
 }

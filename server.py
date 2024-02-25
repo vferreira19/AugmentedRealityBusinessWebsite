@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, jsonify
 
-from connection import select, insert
+from connection import select, insert, delete
 
 app = Flask(__name__)
 
@@ -54,8 +54,9 @@ def insert_data():
 def delete_data():
     data = request.get_json()
     date = data.get('date')
+    time = data.get('time')
     
-    delete(date)
+    delete(date, time)
 
     print('data deleted')
     return jsonify({'status': 'success'})
