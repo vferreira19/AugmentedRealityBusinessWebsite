@@ -256,7 +256,7 @@ td:hover, .calendar-btn:hover  {
 }
 #slider figure{
     position: relative;
-    width: 500%;
+    width: 420%;
     margin: 0;
     left: 0;
     animation: 20s slider infinite;
@@ -271,7 +271,7 @@ td:hover, .calendar-btn:hover  {
         left: 0;
     }
     20%{
-        left: 0
+        left: 0;
     }
     25%{
         left: -100%;
@@ -280,10 +280,10 @@ td:hover, .calendar-btn:hover  {
         left: -100%;
     }
     50%{
-        left: -200%;
+        left: -150%;
     }
     70%{
-        left: -200%;
+        left: -150%;
     }
 }
 
