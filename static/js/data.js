@@ -39,12 +39,17 @@ function pageLoaded() {
     submitbtn.addEventListener('click', function(){
       const customer_name = document.getElementById('customer_name');
       const time = document.getElementById('time');
-      console.log(slots_taken.includes(time.value));
+      console.log();
       if(customer_name.value == ''){
         alert('Please choose a name.');
       }else{
+
+        if(slots_taken.includes(parseInt(time.value))){
+          alert('Slot is already taken');
+        }else{
         sendDataToFlask(formattedDate)
         location.reload();
+      }
       }
     });
 
@@ -88,7 +93,6 @@ function pageLoaded() {
           container.appendChild(rowContainer);
           
       });
-      console.log()
   }
   // Utility functions
   
