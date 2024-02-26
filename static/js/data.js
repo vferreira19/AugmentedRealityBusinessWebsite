@@ -1,10 +1,5 @@
 function pageLoaded() {
     console.log('js ready');
-    const shareButton = document.getElementById('share-btn');
-    shareButton.addEventListener('click', function () {
-      const readOnlyLink = window.location.origin + '/read_only.html';
-      alert('Share this link with others to view your diary: \n\n' + readOnlyLink);
-    });
     document.getElementById('icon').addEventListener('click', openNav);
     document.getElementById('closeBtn').addEventListener('click', closeNav);
   }
@@ -21,7 +16,7 @@ function pageLoaded() {
   const day = dataContainer.getAttribute('data-day')
   
   const date = new Date(year, month, day);
-
+  let slots_taken = [];
   displayDiaryEntry(date)
 
 
@@ -37,10 +32,14 @@ function pageLoaded() {
     const header = document.getElementById('diary_header')
     header.innerHTML = date.toDateString();
   
-    // Buttons
+    retrieveData(formattedDate);
+
     const submitbtn = document.getElementById('submitbtn');
+    
     submitbtn.addEventListener('click', function(){
       const customer_name = document.getElementById('customer_name');
+      const time = document.getElementById('time');
+      console.log(slots_taken.includes(time.value));
       if(customer_name.value == ''){
         alert('Please choose a name.');
       }else{
@@ -49,7 +48,7 @@ function pageLoaded() {
       }
     });
 
-    retrieveData(formattedDate)    
+      
   }
   function processData(data){
     var container = document.getElementById('inputs_div');
@@ -61,7 +60,7 @@ function pageLoaded() {
           rowContainer.id = rowContainer;
 
           const time = document.createElement('h2');
-          
+          slots_taken.push(object[0]);
           time.textContent = object[0]+ ':00';
           rowContainer.appendChild(time);
           
