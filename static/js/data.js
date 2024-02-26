@@ -48,22 +48,22 @@ function pageLoaded() {
   function processData(data){
     var container = document.getElementById('inputs_div');
       container.innerHTML = '';
-      let index = 0;
+      
       // Iterate through each object in the 'data' array
       data.forEach(function(object) {
           const rowContainer = document.createElement('div');
           rowContainer.id = rowContainer;
 
           const time = document.createElement('h2');
-          time.id = index+1;
+          
           time.textContent = object[0]+ ':00';
           rowContainer.appendChild(time);
           
-          const customer = document.createElement('textarea');
+          const customer = document.createElement('h4');
           customer.textContent = object[1];
           rowContainer.appendChild(customer);
           
-          const description = document.createElement('textarea');
+          const description = document.createElement('h4');
           description.textContent = object[2];
           rowContainer.appendChild(description);
           
@@ -73,6 +73,7 @@ function pageLoaded() {
           iconElement.className = "fa-trash";
           delete_button.appendChild(iconElement);
           delete_button.addEventListener('click', function () {
+            console.log(date, object[0]);
             deleteData(date, object[0]);
           });
           rowContainer.appendChild(delete_button);

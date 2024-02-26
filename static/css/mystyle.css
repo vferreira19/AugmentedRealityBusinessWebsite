@@ -97,12 +97,7 @@ a{
     text-align: center;
     
 }
-#diaryEntry {
 
-    min-height: 50px;
-    text-align: center;
-    padding: 2%;
-}
 
 #buttons_div{
     display: flex;
@@ -176,9 +171,12 @@ p{
     line-height: 7em;
     color: black;
 }
-
+.main:hover{
+    background-color: rgb(243, 134, 134);
+}
 .main{
     text-align: right;
+    font-size: x-large;
     color: red;
     
 
@@ -251,6 +249,42 @@ td:hover, .calendar-btn:hover  {
     right: 25px;
     font-size: 36px;
     margin-left: 50px;
+}
+
+#slider{
+    overflow: hidden;
+}
+#slider figure{
+    position: relative;
+    width: 500%;
+    margin: 0;
+    left: 0;
+    animation: 20s slider infinite;
+}
+#slider figure img{
+    float: left;
+    width: 20%;
+}
+
+@keyframes slider{
+    0% {
+        left: 0;
+    }
+    20%{
+        left: 0
+    }
+    25%{
+        left: -100%;
+    }
+    45%{
+        left: -100%;
+    }
+    50%{
+        left: -200%;
+    }
+    70%{
+        left: -200%;
+    }
 }
 
 @media (max-width: 500px){
