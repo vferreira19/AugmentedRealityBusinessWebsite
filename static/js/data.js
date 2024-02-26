@@ -40,8 +40,13 @@ function pageLoaded() {
     // Buttons
     const submitbtn = document.getElementById('submitbtn');
     submitbtn.addEventListener('click', function(){
+      const customer_name = document.getElementById('customer_name');
+      if(customer_name.value == ''){
+        alert('Please choose a name.');
+      }else{
         sendDataToFlask(formattedDate)
         location.reload();
+      }
     });
 
     retrieveData(formattedDate)    
