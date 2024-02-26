@@ -98,48 +98,12 @@ a{
     
 }
 
-
-#buttons_div{
-    display: flex;
-    font-family: "Alegreya", "sans-serif";
-    font-size: medium;
-    font-weight: bold;
-    padding: 30px;
-    
-}
-
-#submitbtn, #removebtn{
-    background-color: white;
-    font-size: large;
-    padding: 20px 30px;
-    margin: auto;
-
-}
-#submitbtn{
-    border: none;
-
-}
-#removebtn{
-    border: solid red;
-    border-width: 3px;
-    border-radius: 5px;
-}
-#submitbtn:active {background-color:rgb(8, 195, 8);}
-#submitbtn:hover {background-color: rgb(8, 195, 8);}
-
-
-
-#removebtn:active{background-color: red;}
-#removebtn:hover{background-color: red;}
-
-
-
 p{
     margin:auto;
 }
 #inputs_div{
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     margin: 2%;
     font-family: "Alegreya", "sans-serif";
     font-size: larger;
@@ -325,18 +289,21 @@ td:hover, .calendar-btn:hover  {
     margin: 20px 0;
 }
 
-/* .styled-select {
+.styled-select {
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
-    border: none;
     background-color: transparent;
-    font-size: inherit;
-    padding: 0;
-    margin: 0;
-    cursor: pointer;
-  } */
-
+    border: none;
+    border-bottom: 3px solid #000; /* Adjust border color as needed */
+    padding: 5px;
+    font-size: 16px; /* Adjust font size as needed */
+    width: 100%;
+  }
+  
+  .styled-select:focus {
+    outline: none;
+  }
 
 
 .briefing{
@@ -354,12 +321,12 @@ td:hover, .calendar-btn:hover  {
     padding: 10px;
     height: 40px;
     width: clamp(100px, 100%, 200px);
-    border: 2px solid #0B2447;
+    border: 2px solid black;
     border-top: none;
     font-size: 16px;
     background: transparent;
     outline: none;
-    box-shadow: 7px 7px 0px 0px #0B2447;
+    box-shadow: 7px 7px 0px 0px black;
     transition: all 0.5s;
   }
   
@@ -372,7 +339,7 @@ td:hover, .calendar-btn:hover  {
     position: absolute;
     top: 10px;
     left: 10px;
-    color: #0B2447;
+    color: black;
     transition: all 0.5s;
     transform: scale(0);
     z-index: -1;
@@ -381,7 +348,7 @@ td:hover, .calendar-btn:hover  {
   .input-container .top-line {
     position: absolute;
     content: "";
-    background-color: #0B2447;
+    background-color: black;
     width: 100%;
     height: 2px;
     right: 0;
@@ -397,7 +364,7 @@ td:hover, .calendar-btn:hover  {
   .input-container .under-line {
     position: absolute;
     content: "";
-    background-color: #0B2447;
+    background-color: black;
     width: 0%;
     height: 2px;
     right: 0;
@@ -415,25 +382,112 @@ td:hover, .calendar-btn:hover  {
     transform: scale(1);
     transition: all 0.5s;
   }
-/* test */
-  #submitbtn{
-    
-  }
-  .styled-select {
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
+
+  .fancy {
     background-color: transparent;
-    border: none;
-    border-bottom: 1px solid #000; /* Adjust border color as needed */
-    padding: 5px;
-    font-size: 16px; /* Adjust font size as needed */
-    width: 100%;
-  }
-  
-  .styled-select:focus {
+    border: 2px solid #000;
+    border-radius: 0;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    float: right;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    margin: 0;
     outline: none;
-  }
+    overflow: visible;
+    padding: 1.25em 2em;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    text-transform: none;
+    transition: all 0.3s ease-in-out;
+    user-select: none;
+    font-size: 13px;
+   }
+   
+   .fancy::before {
+    content: " ";
+    width: 1.5625rem;
+    height: 2px;
+    background: black;
+    top: 50%;
+    left: 1.5em;
+    position: absolute;
+    transform: translateY(-50%);
+    transform-origin: center;
+    transition: background 0.3s linear, width 0.3s linear;
+   }
+   
+   .fancy .text {
+    font-size: 1.125em;
+    line-height: 1.33333em;
+    padding-left: 2em;
+    display: block;
+    text-align: left;
+    transition: all 0.3s ease-in-out;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: black;
+   }
+   
+   .fancy .top-key {
+    height: 2px;
+    width: 1.5625rem;
+    top: -2px;
+    left: 0.625rem;
+    position: absolute;
+    background: #e8e8e8;
+    transition: width 0.5s ease-out, left 0.3s ease-out;
+   }
+   
+   .fancy .bottom-key-1 {
+    height: 2px;
+    width: 1.5625rem;
+    right: 1.875rem;
+    bottom: -2px;
+    position: absolute;
+    background: #e8e8e8;
+    transition: width 0.5s ease-out, right 0.3s ease-out;
+   }
+   
+   .fancy .bottom-key-2 {
+    height: 2px;
+    width: 0.625rem;
+    right: 0.625rem;
+    bottom: -2px;
+    position: absolute;
+    background: #e8e8e8;
+    transition: width 0.5s ease-out, right 0.3s ease-out;
+   }
+   
+   .fancy:hover {
+    color: white;
+    background: black;
+   }
+   
+   .fancy:hover::before {
+    width: 0.9375rem;
+    background: white;
+   }
+   
+   .fancy:hover .text {
+    color: white;
+    padding-left: 1.5em;
+   }
+   
+   .fancy:hover .top-key {
+    left: -2px;
+    width: 0px;
+   }
+   
+   .fancy:hover .bottom-key-1,
+    .fancy:hover .bottom-key-2 {
+    right: 0;
+    width: 0;
+   }
+ 
 
   
 @media (max-width: 500px){
