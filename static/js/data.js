@@ -37,24 +37,12 @@ function pageLoaded() {
     const header = document.getElementById('diary_header')
     header.innerHTML = date.toDateString();
   
-    
-
-  
-  
     // Buttons
     const submitbtn = document.getElementById('submitbtn');
     submitbtn.addEventListener('click', function(){
         sendDataToFlask(formattedDate)
     });
 
-    const removebtn = document.getElementById('removebtn');
-  
-    removebtn.addEventListener('click', function() {
-      
-        deleteData(formattedDate, 18)
-    });
-
-    
     retrieveData(formattedDate)    
   }
   function processData(data){
@@ -64,6 +52,7 @@ function pageLoaded() {
       // Iterate through each object in the 'data' array
       data.forEach(function(object) {
           const rowContainer = document.createElement('div');
+          rowContainer.id = rowContainer;
 
           const time = document.createElement('h2');
           time.id = index+1;
@@ -79,9 +68,11 @@ function pageLoaded() {
           rowContainer.appendChild(description);
           
           const delete_button = document.createElement('btn');
-          delete_button.textContent = 'button';
+          delete_button.className = 'main';
+          var iconElement = document.createElement('i');
+          iconElement.className = "fa-trash";
+          delete_button.appendChild(iconElement);
           delete_button.addEventListener('click', function () {
-          
             deleteData(date, object[0]);
           });
           rowContainer.appendChild(delete_button);

@@ -118,11 +118,10 @@ a{
     font-size: large;
     padding: 20px 30px;
     margin: auto;
+
 }
 #submitbtn{
-    border: solid rgb(8, 195, 8);
-    border-width: 3px;
-    border-radius: 5px;
+    border: none;
 
 }
 #removebtn{
@@ -158,7 +157,32 @@ p{
     font-size: medium;
     
 }
+#new_booking{
+    text-align: center;
+    padding: 1%; 
+    
+}
+#add{
+    display: flex;
+    
+    border-bottom:solid rgb(23, 145, 226);
+}
+#description, #customer_name, #time{
+    border-bottom: none;
+    
+}
+#description::placeholder, #customer_name::placeholder, #time::placeholder{
+    text-align:center;
+    line-height: 7em;
+    color: black;
+}
 
+.main{
+    text-align: right;
+    color: red;
+    
+
+}
 .add{
     display: block;
 }
@@ -169,14 +193,13 @@ textarea {
     border-right: none;
     border-bottom:  solid rgb(50, 138, 237); /* Remove border */
     resize: none !important; /* Disable resizing */
-    background-color: transparent; /* Make background transparent */
     font-family: inherit; /* Inherit font family */
     font-size: inherit; /* Inherit font size */
     padding: none; /* Remove padding */
     outline: none; /* Remove outline */
     overflow: hidden; /* Hide any overflowing content */
   }
-  
+
 
 /* The side navigation menu */
 .sidenav {
