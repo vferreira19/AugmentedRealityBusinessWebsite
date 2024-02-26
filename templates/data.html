@@ -16,11 +16,9 @@
   
   <div id="page_top">
     <span id="icon" class="fa fa-bars fa-2x"></span>
-
     <a href="{{ url_for('home') }}">
         <h1 id="page_heading">Barber $hop</h1>
     </a>
-
   </div>  
   
   <h2 id="diary_header"></h2>
@@ -31,34 +29,32 @@
   </div><br>
 
   
-
-  <div id="inputs_div">
-    
+  
+  <div id="inputs_div">  
   </div>
 
+  <div>
+    <h4 id="new_booking">New Booking</h4>
+    <div id="add">
+      <textarea placeholder="Customer name" id="customer_name" cols="30" rows="5" required></textarea>
+      <textarea placeholder="Additional information" id="description" cols="30" rows="5"></textarea>
+      <select class="styled-select" name="time" id="time">
+        <option value="9">09:00</option>
+        <option value="10">10:00</option>
+        <option value="11">11:00</option>
+        <option value="12">12:00</option>
+        <option value="13">13:00</option>
+        <option value="14">14:00</option>
+        <option value="15">15:00</option>
+        <option value="16">16:00</option>
+        <option value="17">17:00</option>
+        <option value="18">18:00</option>
+        <option value="19">19:00</option>
+        <option value="20">20:00</option>
+      </select>
+      <button id="submitbtn"><i class="fa fa-check"></i></button>
+    </div>
 
-  <h4 id="new_booking">New Booking</h4>
-
-  <div id="add">
-  
-  <textarea placeholder="Customer name" id="customer_name" cols="30" rows="5" required></textarea>
-  <textarea placeholder="Additional information" id="description" cols="30" rows="5"></textarea>
-  <select class="styled-select" name="time" id="time">
-    <option value="9">09:00</option>
-    <option value="10">10:00</option>
-    <option value="11">11:00</option>
-    <option value="12">12:00</option>
-    <option value="13">13:00</option>
-    <option value="14">14:00</option>
-    <option value="15">15:00</option>
-    <option value="16">16:00</option>
-    <option value="17">17:00</option>
-    <option value="18">18:00</option>
-    <option value="19">19:00</option>
-    <option value="20">20:00</option>
-  </select>
-  <button id="submitbtn"><i class="fa fa-check"></i></button>
-  
   </div>
 
   <div id="mySidenav" class="sidenav">

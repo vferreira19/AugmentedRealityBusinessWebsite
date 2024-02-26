@@ -9,7 +9,14 @@ const currentMonth = today.getMonth();
 const currentYear = today.getFullYear();
 const diaryEntryElement = document.getElementById('diaryEntry');
 
-displayCalendar(currentMonth, currentYear);
+function getDaysInMonth(month, year) {
+  return new Date(year, month + 1, 0).getDate();
+}
+
+function getMonthName(month) {
+  const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  return monthNames[month];
+}
 
 function displayCalendar(month, year) {
   const daysInMonth = getDaysInMonth(month, year);
@@ -121,14 +128,7 @@ function displayCalendar(month, year) {
   header.appendChild(prevMonth);
 }
 
-function getDaysInMonth(month, year) {
-  return new Date(year, month + 1, 0).getDate();
-}
-
-function getMonthName(month) {
-  const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-  return monthNames[month];
-}
+displayCalendar(currentMonth, currentYear);
 
 function openNav() {
   document.getElementById('mySidenav').style.width = '250px';
