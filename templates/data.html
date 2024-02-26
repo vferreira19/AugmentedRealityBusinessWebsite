@@ -43,7 +43,20 @@
   
   <textarea placeholder="Customer name" id="customer_name" cols="30" rows="5"></textarea>
   <textarea placeholder="Additional information" id="description" cols="30" rows="5"></textarea>
-  <textarea placeholder="Hour" id="time" cols="30" rows="5"></textarea>
+  <select class="styled-select" name="time" id="time">
+    <option value="9">09:00</option>
+    <option value="10">10:00</option>
+    <option value="11">11:00</option>
+    <option value="12">12:00</option>
+    <option value="13">13:00</option>
+    <option value="14">14:00</option>
+    <option value="15">15:00</option>
+    <option value="16">16:00</option>
+    <option value="17">17:00</option>
+    <option value="18">18:00</option>
+    <option value="19">19:00</option>
+    <option value="20">20:00</option>
+  </select>
   <button id="submitbtn"><i class="fa fa-check"></i></button>
   
   </div>
@@ -53,8 +66,6 @@
     <a href="read_only.html">Read Only Mode</a>
     <a id="share-btn">Share</a> 
   </div>
-
-
 
   <div id="data-container" data-year="{{ year }}" data-month="{{ month }}" data-day="{{ day }}"></div>
 
