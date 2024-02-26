@@ -321,7 +321,8 @@ td:hover, .calendar-btn:hover  {
 }
 .testimonial{
     background: #fff;
-    padding: 30%;
+    padding: 20%;
+    padding-top: 10%;
 }
 .testimonial img{
     width: 100%;
@@ -346,6 +347,12 @@ td:hover, .calendar-btn:hover  {
     margin: 0;
     cursor: pointer;
   }
+
+.briefing{
+
+    text-align: center;
+    margin: 1%;
+}
 @media (max-width: 500px){
     
    
