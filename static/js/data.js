@@ -41,6 +41,7 @@ function pageLoaded() {
     const submitbtn = document.getElementById('submitbtn');
     submitbtn.addEventListener('click', function(){
         sendDataToFlask(formattedDate)
+        location.reload();
     });
 
     retrieveData(formattedDate)    
@@ -75,6 +76,7 @@ function pageLoaded() {
           delete_button.addEventListener('click', function () {
             console.log(date, object[0]);
             deleteData(date, object[0]);
+            location.reload();
           });
           rowContainer.appendChild(delete_button);
 
