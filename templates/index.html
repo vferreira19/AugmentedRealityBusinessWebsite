@@ -23,7 +23,6 @@
 
   <div id="mySidenav" class="sidenav">
     <a href="javascript:void(0)" id='closeBtn'class="closebtn">&times;</a>
-    <!-- <a href="read_only.html">Read Only Mode</a> -->
     <a type="button" id="share-btn">Share</a>
     <a type="button" id="clearbtn">Reset calendar</a>
   </div>
@@ -37,6 +36,58 @@
     </figure>
   </div>
 
+  <div>
+    <div>
+      <h1 class="testimonials">Reviews</h1>
+      <div class="border"></div>
+      <div class="row">
+        <div class="row">
+          <div class="col">
+            <div class="testimonial">
+              <img src="{{ url_for('static', filename='customer1.jpg') }}" alt="">
+              <div class="name">Full name</div>
+              <div class="stars">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+              </div>
+              <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+            </div>
+          </div>
+          <div class="col">
+            <div class="testimonial">
+              <img src="{{ url_for('static', filename='customer2.jpg') }}" alt="">
+              <div class="name">Full name</div>
+              <div class="stars">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+              </div>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."</p>
+            </div>
+          </div>
+          <div class="col">
+            <div class="testimonial">
+              <img src="{{ url_for('static', filename='customer3.jpg') }}" alt="">
+              <div class="name">Full name</div>
+              <div class="stars">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+              </div>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <script src="{{ url_for('static', filename='js/index.js') }}"></script>
 
