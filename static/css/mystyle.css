@@ -138,39 +138,31 @@ p{
     margin:auto;
 }
 #inputs_div{
-    display: block;
+    display: flex;
+    justify-content: space-between;
     margin: 2%;
     font-family: "Alegreya", "sans-serif";
     font-size: larger;
 }
-#description{
-    font-size: medium;
-}
+
 
 .booking_time{
     font-family: "Alegreya", "sans-serif";
-    font-size: medium;
-    
+    font-size: medium; 
 }
+
 #new_booking{
     text-align: center;
     padding: 1%; 
     
 }
+
 #add{
     display: flex;
     justify-content: space-around;
 
 }
-#description, #customer_name, #time{
-    border-bottom: none;
-    
-}
-#description::placeholder, #customer_name::placeholder, #time::placeholder{
-    text-align:center;
-    line-height: 7em;
-    color: black;
-}
+
 .main:hover{
     background-color: rgb(243, 134, 134);
 }
@@ -333,7 +325,7 @@ td:hover, .calendar-btn:hover  {
     margin: 20px 0;
 }
 
-.styled-select {
+/* .styled-select {
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -343,7 +335,9 @@ td:hover, .calendar-btn:hover  {
     padding: 0;
     margin: 0;
     cursor: pointer;
-  }
+  } */
+
+
 
 .briefing{
 
@@ -421,7 +415,27 @@ td:hover, .calendar-btn:hover  {
     transform: scale(1);
     transition: all 0.5s;
   }
+/* test */
+  #submitbtn{
+    
+  }
+  .styled-select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid #000; /* Adjust border color as needed */
+    padding: 5px;
+    font-size: 16px; /* Adjust font size as needed */
+    width: 100%;
+  }
+  
+  .styled-select:focus {
+    outline: none;
+  }
 
+  
 @media (max-width: 500px){
     
       
