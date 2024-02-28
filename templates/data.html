@@ -16,11 +16,9 @@
   
   <div id="page_top">
     <span id="icon" class="fa fa-bars fa-2x"></span>
-
     <a href="{{ url_for('home') }}">
         <h1 id="page_heading">Barber $hop</h1>
     </a>
-
   </div>  
   
   <h2 id="diary_header"></h2>
@@ -31,48 +29,63 @@
   </div><br>
 
   
-
-  <div id="inputs_div">
-    <script>
-      let start = 9;
-      const names = ['Maria', 'Paula', 'Beatriz', 'Ana', 'Fernanda', 'Sandra'];
   
-      for(let i = 0; i <= 11; i++){
-        var p = document.createElement('p');
-        p.classList = 'booking_time'
-        p.id = 'title' + (i + 1);
-        p.textContent = start + ":00";start ++;
-
-        var customer = document.createElement('p');
-        customer.textContent = names[i];
-
-        var description = document.createElement("textarea");
-        description.placeholder = 'Type here...';
-        
-        document.getElementById('inputs_div').appendChild(p);
-        document.getElementById('inputs_div').appendChild(customer);
-        document.getElementById('inputs_div').appendChild(description);
-        
-      }
-    </script>
-  
+  <div id="inputs_div">  
   </div>
 
+  <div>
+    <h4 id="new_booking">New Booking</h4>
+    <div id="add">
 
+      <div class="input-container">
+        <input type="text"  id="customer_name" name="text" class="input">
+        <label class="label">Customer</label>
+        <div class="top-line"></div>
+        <div class="under-line"></div>
+      </div>
 
-  <div id="buttons_div">
-    <button id="submitbtn"><i class="fa fa-check"></i></button>
-    <button id="removebtn"><i class="fa fa-trash"></i></button>
+      <div class="input-container">
+        <input type="text"  id="description" name="text" class="input">
+        <label class="label">Phone</label>
+        <div class="top-line"></div>
+        <div class="under-line"></div>
+      </div>
+
+      <div class="input_container">
+
+        <select class="styled-select" name="time" id="time">
+          <option value="9">09:00</option>
+          <option value="10">10:00</option>
+          <option value="11">11:00</option>
+          <option value="12">12:00</option>
+          <option value="13">13:00</option>
+          <option value="14">14:00</option>
+          <option value="15">15:00</option>
+          <option value="16">16:00</option>
+          <option value="17">17:00</option>
+          <option value="18">18:00</option>
+          <option value="19">19:00</option>
+          <option value="20">20:00</option>
+        </select>
+      </div>
+      <div class="input_container">
+        <!-- <button id="submitbtn"><i class="fa fa-check"></i></button> -->
+        <a id="submitbtn" class="fancy" href="#">
+          <span class="top-key"></span>
+          <span class="text">Make reservation</span>
+          <span class="bottom-key-1"></span>
+          <span class="bottom-key-2"></span>
+        </a>
+      </div>
+    </div>
+
   </div>
-
 
   <div id="mySidenav" class="sidenav">
     <a href="javascript:void(0)" id='closeBtn'class="closebtn">&times;</a>
     <a href="read_only.html">Read Only Mode</a>
-    <a id="share-btn">Share</a>
+    <a id="share-btn">Share</a> 
   </div>
-
-
 
   <div id="data-container" data-year="{{ year }}" data-month="{{ month }}" data-day="{{ day }}"></div>
 

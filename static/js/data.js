@@ -1,10 +1,5 @@
 function pageLoaded() {
     console.log('js ready');
-    const shareButton = document.getElementById('share-btn');
-    shareButton.addEventListener('click', function () {
-      const readOnlyLink = window.location.origin + '/read_only.html';
-      alert('Share this link with others to view your diary: \n\n' + readOnlyLink);
-    });
     document.getElementById('icon').addEventListener('click', openNav);
     document.getElementById('closeBtn').addEventListener('click', closeNav);
   }
@@ -21,7 +16,7 @@ function pageLoaded() {
   const day = dataContainer.getAttribute('data-day')
   
   const date = new Date(year, month, day);
-
+  let slots_taken = [];
   displayDiaryEntry(date)
 
 
@@ -36,34 +31,70 @@ function pageLoaded() {
   
     const header = document.getElementById('diary_header')
     header.innerHTML = date.toDateString();
-    // header.innerHTML = date.toDateString();
-    
+  
+    retrieveData(formattedDate);
 
-  
-  
-    // Buttons
     const submitbtn = document.getElementById('submitbtn');
-    submitbtn.addEventListener('click', function(){
-        sendDataToFlask(formattedDate)
-    });
-
-    const removebtn = document.getElementById('removebtn');
-    removebtn.addEventListener('click', function() {
-        deleteData(formattedDate)
-    });
-   
-    // const clearbtn = document.getElementById('clearbtn');
-    // clearbtn.addEventListener('click', function() {
-    //     clearCalendar()
-    // });
-
-  
-    retrieveData(formattedDate)
     
+    submitbtn.addEventListener('click', function(){
+      const customer_name = document.getElementById('customer_name');
+      const time = document.getElementById('time');
+      console.log();
+      if(customer_name.value == ''){
+        alert('Please choose a name.');
+      }else{
+
+        if(slots_taken.includes(parseInt(time.value))){
+          alert('Slot is already taken');
+        }else{
+        sendDataToFlask(formattedDate)
+        location.reload();
+      }
+      }
+    });
+
+      
   }
-  
+  function processData(data){
+    var container = document.getElementById('inputs_div');
+      container.innerHTML = '';
+      
+      // Iterate through each object in the 'data' array
+      data.forEach(function(object) {
+          const rowContainer = document.createElement('div');
+          rowContainer.id = rowContainer;
+
+          const time = document.createElement('h2');
+          slots_taken.push(object[0]);
+          time.textContent = object[0]+ ':00';
+          rowContainer.appendChild(time);
+          
+          const customer = document.createElement('h4');
+          customer.textContent = object[1];
+          rowContainer.appendChild(customer);
+          
+          const description = document.createElement('h4');
+          description.textContent = object[2];
+          rowContainer.appendChild(description);
+          
+          const delete_button = document.createElement('btn');
+          delete_button.className = 'main';
+          var iconElement = document.createElement('i');
+          iconElement.className = "fa-trash";
+          delete_button.appendChild(iconElement);
+          delete_button.addEventListener('click', function () {
+            console.log(date, object[0]);
+            deleteData(date, object[0]);
+            location.reload();
+          });
+          rowContainer.appendChild(delete_button);
+
+          // Append the object container to the main container
+          container.appendChild(rowContainer);
+          
+      });
+  }
   // Utility functions
-  
   
   function createInput(id, content, placeholder) {
     const input = document.createElement('textarea');
@@ -87,9 +118,9 @@ function pageLoaded() {
     const data = {
       page_title: document.getElementById('page_heading').innerHTML,
       date: date,
-      work_description: document.getElementById('work_description').value,
-      experience_description: document.getElementById('experience_description').value,
-      competency: document.getElementById('competency').value,
+      customer_name: document.getElementById('customer_name').value,
+      description: document.getElementById('description').value,
+      time: document.getElementById('time').value,
     };
   
     fetch('/insert_data', {
@@ -133,49 +164,39 @@ function pageLoaded() {
         }
       })
     .then(data => {
-        // Handle the retrieved data here
-        if (data.length >= 3) {
-          document.getElementById('work_description').value = data[0];
-          document.getElementById('experience_description').value = data[1];
-          document.getElementById('competency').value = data[2];
-        } else {
-          document.getElementById('work_description').value = '';
-          document.getElementById('experience_description').value = '';
-          document.getElementById('competency').value = '';
-        }
-  
-    })
+
+      processData(data);
+  })
     .catch(error => {
+        // Handle any errors that occur during the fetch
         console.error('Error:', error);
     });
-  }
-  
-  function deleteData(date){
-        
-    const data = {
-  
-      date: date,
-  
-    };
-  
-    fetch('/delete_data', {
-      method: 'POST',
-      headers: {
-    'Content-Type': 'application/json',
-    },
-      body: JSON.stringify(data),
-    })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      return response.json();
-  })
-    .then(data => {   
-    })
-  }
-
-  
   
   pageLoaded();
-  
+
+}
+
+function deleteData(date, time){
+        
+  const data = {
+
+    date: date,
+    time: time,
+  };
+
+  fetch('/delete_data', {
+    method: 'POST',
+    headers: {
+  'Content-Type': 'application/json',
+  },
+    body: JSON.stringify(data),
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    return response.json();
+})
+  .then(data => {   
+  })
+}

@@ -4,22 +4,18 @@ from psycopg2.errors import UndefinedTable
 
 def create_connection():
         
-    return psycopg2.connect('postgres://lzrafpxy:1D0Sq3CwmA0Zi9FJP4reYSqqFE9W6w5I@flora.db.elephantsql.com/lzrafpxy')
+    return psycopg2.connect('postgres://ukgghlwe:XXMNFCmwhbl2fXd2dHzg8tCoTUWavZZC@trumpet.db.elephantsql.com/ukgghlwe')
 
-def insert(date, text1, text2, text3):
+def insert(date, customer_name, description, time):
 
     connection = create_connection()
     cursor = connection.cursor()
     
     try:
         query = f"""
-        INSERT INTO diary_entry (date, text1, text2, text3)
-        VALUES ('{date}', '{text1}', '{text2}', '{text3}')
-        ON CONFLICT (date)
-        DO UPDATE SET
-        text1 = EXCLUDED.text1,
-        text2 = EXCLUDED.text2,
-        text3 = EXCLUDED.text3;
+        INSERT INTO day_entries (date, customer_name, description, time)
+        VALUES ('{date}', '{customer_name}', '{description}', '{time}')
+    
         """
         cursor.execute(query)
         connection.commit()
@@ -38,13 +34,13 @@ def select(date):
     try:
         # Check if the table exists, and create it if it doesn't
         try:
-            cursor.execute(sql.SQL("SELECT 1 FROM {} LIMIT 1").format(sql.Identifier('diary_entry')))
+            cursor.execute(sql.SQL("SELECT 1 FROM {} LIMIT 1").format(sql.Identifier('day_entries')))
         except UndefinedTable:
-            create_table()
+           
             connection.commit()
 
         # Your original select query
-        query = f"SELECT text1, text2, text3 FROM diary_entry WHERE date='{date}'"
+        query = f"SELECT time, customer_name, description FROM day_entries WHERE date='{date}'ORDER BY time ASC"
         cursor.execute(query)
         result = cursor.fetchall()
 
@@ -53,14 +49,14 @@ def select(date):
         cursor.close()
         connection.close()
 
-def delete(date):
+def delete(date, time):
 
     connection = create_connection()
     cursor = connection.cursor()
 
     try:
 
-        query = f"DELETE FROM diary_entry WHERE date='{date}'"
+        query = f"DELETE FROM day_entries WHERE date='{date}' and time='{time}'"
         cursor.execute(query)
         connection.commit()
 
@@ -69,21 +65,21 @@ def delete(date):
         cursor.close()
         connection.close()
 
-def drop():
-    connection = create_connection()
-    cursor = connection.cursor()
+# def drop():
+#     connection = create_connection()
+#     cursor = connection.cursor()
 
-    try:
+#     try:
 
-        query = "DROP TABLE IF EXISTS diary_entry"
-        cursor.execute(query)
-        connection.commit()
+#         query = "DROP TABLE IF EXISTS diary_entry"
+#         cursor.execute(query)
+#         connection.commit()
 
-    finally:
-        cursor.close()
-        connection.close()
+#     finally:
+#         cursor.close()
+#         connection.close()
 
-def create_table():
+# def create_table():
     connection = create_connection()
     cursor = connection.cursor()
 
