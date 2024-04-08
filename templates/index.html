@@ -20,7 +20,6 @@
   <span id="icon" class="fa fa-bars fa-2x"></span>
   <div id="mySidenav" class="sidenav">
     <a href="javascript:void(0)" id='closeBtn'class="closebtn">&times;</a>
-    <h1 id="username">{{ username }}</h1>
     <a href='/logout'>Logout</a>"
   </div>
 
@@ -31,6 +30,7 @@
   </div>
 
   <div class="briefing">
+    <h1 id="username">Welcome {{ username | title }}</h1>
     <h2>Make your appointment with us today</h2>
   </div>
   <div id="calendar"></div>

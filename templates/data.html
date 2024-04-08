@@ -12,11 +12,16 @@
   <script>
     
     window.username = '{{username}}';
-  </script>
+    </script>
 
 </head>
 
 <body>
+  
+  <div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" id='closeBtn'class="closebtn">&times;</a>
+    <a href='/logout'>Logout</a>"
+  </div>
   
   <div id="page_top">
     <span id="icon" class="fa fa-bars fa-2x"></span>
@@ -36,7 +41,7 @@
   
   <div id="inputs_div">  
   </div>
-
+  
   <div>
     <h4 id="new_booking">New Booking</h4>
     <div id="add">
@@ -85,10 +90,6 @@
 
   </div>
 
-  <div id="mySidenav" class="sidenav">
-    <a href="javascript:void(0)" id='closeBtn'class="closebtn">&times;</a>
-    <a href='/logout'>Logout</a>"
-  </div>
 
   <div id="data-container" data-year="{{ year }}" data-month="{{ month }}" data-day="{{ day }}"></div>
 
