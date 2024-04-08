@@ -19,6 +19,9 @@ function pageLoaded() {
   let slots_taken = [];
   displayDiaryEntry(date)
 
+ 
+
+  console.log("username: ", username);
 
   function displayDiaryEntry(date) {
     diaryEntryElement.innerHTML = '';
@@ -58,10 +61,13 @@ function pageLoaded() {
   function processData(data){
     var container = document.getElementById('inputs_div');
       container.innerHTML = '';
-    
-    if (data){
+      
+      const username = data.username;
+      const retrieved_data = data.data;
+
+    if (retrieved_data){
       // Iterate through each object in the 'data' array
-      data.forEach(function(object) {
+      retrieved_data.forEach(function(object) {
           const rowContainer = document.createElement('div');
           rowContainer.id = rowContainer;
 
@@ -92,8 +98,9 @@ function pageLoaded() {
           rowContainer.appendChild(delete_button);
 
           // Append the object container to the main container
-          
-          container.appendChild(rowContainer);
+          if(username=='vitor'){
+            container.appendChild(rowContainer);  
+          }
           
       });
     }  else {
@@ -152,7 +159,7 @@ function pageLoaded() {
         // Handle the result if needed
       })
       .catch(error => {
-        console.error('Error:', error.message); // Log the error message
+
       });
   }
   
@@ -214,8 +221,6 @@ function deleteData(date, time) {
       console.log('Delete operation successful:', responseData);
     })
     .catch(error => {
-      // Handle any errors that occurred during the fetch operation
-      console.error('Error occurred during delete operation:', error);
     });
 }
 

@@ -57,16 +57,21 @@ def data_page():
 @app.route('/retrieve_data', methods=['POST'])
 def retrieve_data():
     try:
+        # Retrieve data based on the date from the request form
         data = select(request.form['date'])
         
-        if data is not None:  # Check if data is not None (i.e., row exists)
-            
-            return jsonify(data)
+        # Check if the user is logged in and retrieve the username from the session
+        username = session.get('username', None)
+        
+        if data is not None:  
+            # Return data and username in JSON format
+            return jsonify({'data': data, 'username': username})
         else:
-            
-            return jsonify('')  # Return an empty string if the row doesn't exist
+            # Return an empty response if the data doesn't exist
+            return jsonify({'data': None, 'username': username})
     except Exception as e:
-        return f'Error retrieving data: {e}'
+        return jsonify({'error': str(e)}), 500  # Return error message with status code 500 if an exception occurs
+
 
 @app.route('/insert_data', methods=['POST'])
 def insert_data():

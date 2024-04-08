@@ -3,7 +3,7 @@ function pageLoaded() {
   document.getElementById('icon').addEventListener('click', openNav);
   document.getElementById('closeBtn').addEventListener('click', closeNav);
 }
-
+console.log("username: ", username);
 const today = new Date();
 const currentMonth = today.getMonth();
 const currentYear = today.getFullYear();
