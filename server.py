@@ -1,13 +1,48 @@
-from flask import Flask, render_template, request, redirect, url_for, jsonify
-
+from flask import Flask, render_template, request, redirect, url_for, jsonify, session
+import sqlite3
+import hashlib
 from connection import select, insert, delete
 
 app = Flask(__name__)
+app.secret_key = '123456'
 
 @app.route('/')
 def home():
-    print('Flask app running')
-    return render_template('index.html')
+    if 'username' in session:
+        username = session['username']
+        return render_template('index.html', username=username)
+    return redirect('/login')
+    
+@app.route('/logout')
+def logout():
+    session.pop('username', None)
+    return redirect('/login')
+def authenticate_user(username, password):
+    conn = sqlite3.connect('users.db')
+    c = conn.cursor()
+    c.execute('SELECT password FROM users WHERE username=?', (username,))
+    stored_password = c.fetchone()
+    conn.close()
+    if stored_password:
+        hashed_password = hashlib.sha256(password.encode()).hexdigest()
+        if hashed_password == stored_password[0]:
+            return True
+    
+    return False
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        if authenticate_user(username, password):
+            session['username'] = username
+            return redirect('/')
+        else:
+            return render_template('login.html', error='invalid username or password')
+    
+    return render_template('login.html')
+
 
 @app.route('/data')
 def data_page():

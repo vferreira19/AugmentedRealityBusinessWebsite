@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href='../static/css/stylesheet.css'>
+</head>
+<body>
+
+
+    <div class="title">
+        <h1>Login Page</h1>
+        {% if error %}
+        <p>{{ error }}</p>
+        {% endif %}
+    </div>
+
+    <form action="/login" method="POST">
+
+        <div class="input-wrapper">
+            <input type="text"  placeholder="username" name="username" class="input">
+        </div>
+        
+        <div class="input-wrapper">
+            <input type="password"  placeholder="password" name="password" class="input">
+        </div>
+        
+        <div class="input-wrapper">
+            <button type="submit" class="btn">LOGIN</button>
+        </div>
+
+    </form>   
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
