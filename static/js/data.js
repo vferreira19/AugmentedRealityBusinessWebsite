@@ -92,6 +92,7 @@ function pageLoaded() {
           rowContainer.appendChild(delete_button);
 
           // Append the object container to the main container
+          
           container.appendChild(rowContainer);
           
       });
