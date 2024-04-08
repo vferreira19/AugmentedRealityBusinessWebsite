@@ -58,7 +58,8 @@ function pageLoaded() {
   function processData(data){
     var container = document.getElementById('inputs_div');
       container.innerHTML = '';
-      
+    
+    if (data){
       // Iterate through each object in the 'data' array
       data.forEach(function(object) {
           const rowContainer = document.createElement('div');
@@ -94,6 +95,15 @@ function pageLoaded() {
           container.appendChild(rowContainer);
           
       });
+    }  else {
+      const rowContainer = document.createElement('div');
+      rowContainer.id = 'rowContainer';
+      const message = document.createElement('h4');
+      message.textContent = 'No customers booked';
+      rowContainer.appendChild(message);
+      container.appendChild(rowContainer);
+  
+    }
   }
   // Utility functions
   
