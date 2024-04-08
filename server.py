@@ -52,14 +52,17 @@ def insert_data():
 
 @app.route('/delete_data', methods=['POST'])
 def delete_data():
-    data = request.get_json()
-    date = data.get('date')
-    time = data.get('time')
-    
-    delete(date, time)
-
-    print('data deleted')
-    return jsonify({'status': 'success'})
+    try:
+        data = request.get_json()
+        date = data.get('date')
+        time = data.get('time')
+        # Assuming delete() function handles deletion and potential errors
+        delete(date, time)
+        print(data)
+        return jsonify({'status': 'success'})
+    except Exception as e:
+        print('Error occurred during deletion:', e)
+        return jsonify({'status': 'error', 'message': str(e)}), 500
     
 @app.route('/clear_calendar')
 def clear_calendar():

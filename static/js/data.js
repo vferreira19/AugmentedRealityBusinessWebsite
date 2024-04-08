@@ -83,9 +83,10 @@ function pageLoaded() {
           iconElement.className = "fa-trash";
           delete_button.appendChild(iconElement);
           delete_button.addEventListener('click', function () {
-            console.log(date, object[0]);
+
             deleteData(date, object[0]);
             location.reload();
+            
           });
           rowContainer.appendChild(delete_button);
 
@@ -176,27 +177,35 @@ function pageLoaded() {
 
 }
 
-function deleteData(date, time){
-        
+function deleteData(date, time) {
+  const isoDateString = `${date.getFullYear()}-${('0' + (date.getMonth() + 1)).slice(-2)}-${('0' + date.getDate()).slice(-2)}T${('0' + time).slice(-2)}:00:00`;
   const data = {
-
-    date: date,
+    date: isoDateString,
     time: time,
+    text: 'message',
   };
-
+  console.log(data);
   fetch('/delete_data', {
     method: 'POST',
     headers: {
-  'Content-Type': 'application/json',
-  },
+      'Content-Type': 'application/json',
+    },
     body: JSON.stringify(data),
   })
-  .then(response => {
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-    return response.json();
-})
-  .then(data => {   
-  })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then(responseData => {
+      // Do something with the response data, if needed
+      console.log('Delete operation successful:', responseData);
+    })
+    .catch(error => {
+      // Handle any errors that occurred during the fetch operation
+      console.error('Error occurred during delete operation:', error);
+    });
 }
+
+
