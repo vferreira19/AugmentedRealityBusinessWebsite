@@ -1,26 +1,25 @@
 from flask import Flask, render_template, request, redirect, url_for, jsonify, session
-import sqlite3
+import psycopg2
+from psycopg2 import sql
+from psycopg2.errors import UndefinedTable
 import hashlib
 from connection import select, insert, delete
 
 app = Flask(__name__)
 app.secret_key = '123456'
 
-@app.route('/')
-def home():
-    if 'username' in session:
-        username = session['username']
-        return render_template('index.html', username=username)
-    return redirect('/login')
-    
-@app.route('/logout')
-def logout():
-    session.pop('username', None)
-    return redirect('/login')
-def authenticate_user(username, password):
-    conn = sqlite3.connect('users.db')
+def register_user(username, password):
+    conn = psycopg2.connect('postgres://ukgghlwe:XXMNFCmwhbl2fXd2dHzg8tCoTUWavZZC@trumpet.db.elephantsql.com/ukgghlwe')
     c = conn.cursor()
-    c.execute('SELECT password FROM users WHERE username=?', (username,))
+    hashed_password = hashlib.sha256(password.encode()).hexdigest()
+    c.execute('INSERT INTO users (username, password) VALUES (%s,%s)', (username, hashed_password))
+    conn.commit()
+    conn.close()
+
+def authenticate_user(username, password):
+    conn = psycopg2.connect('postgres://ukgghlwe:XXMNFCmwhbl2fXd2dHzg8tCoTUWavZZC@trumpet.db.elephantsql.com/ukgghlwe')
+    c = conn.cursor()
+    c.execute('SELECT password FROM users WHERE username=%s', (username,))
     stored_password = c.fetchone()
     conn.close()
     if stored_password:
@@ -29,6 +28,16 @@ def authenticate_user(username, password):
             return True
     
     return False
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        register_user(username, password)
+        return redirect('/login')
+    
+    return render_template('register.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -43,6 +52,18 @@ def login():
     
     return render_template('login.html')
 
+@app.route('/logout')
+def logout():
+    session.pop('username', None)
+    return redirect('/login')
+
+@app.route('/')
+def home():
+    if 'username' in session:
+        username = session['username']
+        return render_template('index.html', username=username)
+    return redirect('/login')
+    
 
 @app.route('/data')
 def data_page():
