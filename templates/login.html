@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href='../static/css/stylesheet.css'>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login_screen.css') }}">
 </head>
 <body>
 
@@ -13,7 +13,7 @@
         {% endif %}
     </div>
 
-    <form action="/login" method="POST">
+    <form class="container" action="/login" method="POST">
 
         <div class="input-wrapper">
             <input type="text"  placeholder="username" name="username" class="input">

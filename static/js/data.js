@@ -21,7 +21,6 @@ function pageLoaded() {
 
  
 
-  console.log("username: ", username);
 
   function displayDiaryEntry(date) {
     diaryEntryElement.innerHTML = '';
@@ -42,7 +41,6 @@ function pageLoaded() {
     submitbtn.addEventListener('click', function(){
       const customer_name = document.getElementById('customer_name');
       const time = document.getElementById('time');
-      console.log();
       if(customer_name.value == ''){
         alert('Please choose a name.');
       }else{
@@ -52,6 +50,7 @@ function pageLoaded() {
         }else{
         sendDataToFlask(formattedDate)
         location.reload();
+        alert('You successfully booked your session. We are looking forward to see you.')
       }
       }
     });
@@ -99,6 +98,11 @@ function pageLoaded() {
 
           // Append the object container to the main container
           if(username=='vitor'){
+            container.appendChild(rowContainer);  
+          }
+
+
+          if(username.toUpperCase()==customer.textContent.toUpperCase()){
             container.appendChild(rowContainer);  
           }
           

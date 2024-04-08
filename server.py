@@ -8,11 +8,11 @@ from connection import select, insert, delete
 app = Flask(__name__)
 app.secret_key = '123456'
 
-def register_user(username, password):
+def register_user(username, password, phone, email_address):
     conn = psycopg2.connect('postgres://ukgghlwe:XXMNFCmwhbl2fXd2dHzg8tCoTUWavZZC@trumpet.db.elephantsql.com/ukgghlwe')
     c = conn.cursor()
     hashed_password = hashlib.sha256(password.encode()).hexdigest()
-    c.execute('INSERT INTO users (username, password) VALUES (%s,%s)', (username, hashed_password))
+    c.execute('INSERT INTO users (username, password, phone, email_address) VALUES (%s,%s,%s,%s)', (username, hashed_password, phone, email_address))
     conn.commit()
     conn.close()
 
@@ -34,7 +34,9 @@ def register():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        register_user(username, password)
+        phone = request.form['phone']
+        email_address = request.form['email_address']
+        register_user(username, password, phone, email_address)
         return redirect('/login')
     
     return render_template('register.html')
