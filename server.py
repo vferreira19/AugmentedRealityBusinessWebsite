@@ -63,9 +63,14 @@ def logout():
 def home():
     if 'username' in session:
         username = session['username']
+        if username == 'admin':
+            return render_template('admin_page.html', username=username)
         return render_template('index.html', username=username)
     return redirect('/login')
     
+@app.route('/popup_content.html')
+def popup_content():
+    return render_template('popup_content.html')
 
 @app.route('/data')
 def data_page():

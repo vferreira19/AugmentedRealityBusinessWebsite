@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Popup Content</title>
+</head>
+<body>
+    <h2 id="header">This is the content of the popup window</h2>
+    <p id="display">You can put any content here.</p>
+
+    <script>
+
+        retrieveData('2024-04-09');
+        function retrieveData(date){
+    date = date
+    fetch('/retrieve_data', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: new URLSearchParams({
+            'date': date,  // Replace with the actual date or get it dynamically
+        }),
+    })
+    .then(response => {
+        
+        if (response.ok && response.headers.get('content-length') !== '0') {
+          return response.json();
+        } else {
+          return ''; 
+        }
+      })
+    .then(data => {
+        const display = document.getElementById('display');
+        const header = document.getElementById('header');
+
+        header.textContent=data.username
+        display.textContent=data.data[0][1]
+
+  })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+  
+
+}
+
+    </script>
+</body>
+</html>

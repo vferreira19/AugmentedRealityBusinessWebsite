@@ -57,9 +57,22 @@ function pageLoaded() {
       for(i=0; i<=11; i++){
         if(data.data[i]){
           const cont = document.getElementById('s' + data.data[i][0]);
-
+          const delete_button = document.createElement('btn');
+          delete_button.className = 'main';
+          var iconElement = document.createElement('i');
+          iconElement.textContent = 'x'
+          delete_button.appendChild(iconElement);
+          
+          delete_button.addEventListener('click', (function(i) {
+            return function() {
+                deleteData(date, data.data[i][0]);
+                location.reload();
+                
+            };
+        })(i));
           if(username == 'admin'){
             cont.textContent = data.data[i][1];
+            cont.appendChild(delete_button);
           
           }
           if(data.data[i][1] == username){
@@ -70,19 +83,7 @@ function pageLoaded() {
           }
           slots_taken.push(data.data[i][0]);
 
-          const delete_button = document.createElement('btn');
-          delete_button.className = 'main';
-          var iconElement = document.createElement('i');
-          iconElement.textContent = 'x'
-          delete_button.appendChild(iconElement);
-          cont.appendChild(delete_button);
-          delete_button.addEventListener('click', (function(i) {
-            return function() {
-                deleteData(date, data.data[i][0]);
-                location.reload();
-                
-            };
-        })(i));
+
         }
       }
     }
