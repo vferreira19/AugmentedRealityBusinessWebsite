@@ -44,7 +44,6 @@ function pageLoaded() {
       }
     });
 
-      
   }
   
   function processData(data){
@@ -191,7 +190,6 @@ function deleteData(date, time) {
       return response.json();
     })
     .then(responseData => {
-      // Do something with the response data, if needed
       console.log('Delete operation successful:', responseData);
     })
     .catch(error => {
