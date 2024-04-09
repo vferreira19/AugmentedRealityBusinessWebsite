@@ -298,7 +298,9 @@ td:hover, .calendar-btn:hover  {
     border-bottom: 3px solid #000; /* Adjust border color as needed */
     padding: 5px;
     font-size: 16px; /* Adjust font size as needed */
-    width: 100%;
+    width: 200%;
+    height: 50px;
+    display: flex;
   }
   
   .styled-select:focus {

@@ -1,15 +1,8 @@
 function pageLoaded() {
     console.log('js ready');
-    document.getElementById('icon').addEventListener('click', openNav);
-    document.getElementById('closeBtn').addEventListener('click', closeNav);
   }
   
-  const today = new Date();
-  const currentMonth = today.getMonth();
-  const currentYear = today.getFullYear();
   const diaryEntryElement = document.getElementById('diaryEntry');
-  
-  
   const dataContainer = document.getElementById('data-container');
   const year = dataContainer.getAttribute('data-year');
   const month = dataContainer.getAttribute('data-month');
@@ -17,20 +10,14 @@ function pageLoaded() {
   
   const date = new Date(year, month, day);
   let slots_taken = [];
-  displayDiaryEntry(date)
-
-
-
-    
-  
-
+  displayDiaryEntry(date);
 
   function displayDiaryEntry(date) {
     diaryEntryElement.innerHTML = '';
     
-    var year = date.getFullYear().toString(); // Get the last two digits of the year
-    var month = ('0' + (date.getMonth() + 1)).slice(-2); // Add leading zero if needed
-    var day = ('0' + date.getDate()).slice(-2); // Add leading zero if needed
+    var year = date.getFullYear().toString(); 
+    var month = ('0' + (date.getMonth() + 1)).slice(-2);
+    var day = ('0' + date.getDate()).slice(-2);
     var formattedDate = year + '-' + month + '-' + day;
   
     const header = document.getElementById('diary_header')
@@ -63,10 +50,8 @@ function pageLoaded() {
   function processData(data){
     var container = document.getElementById('customer_slots');
       container.innerHTML = '';
-
    
       const username = data.username;
-
 
     if(data && data.data && typeof data.data[0] !== 'undefined') {
 
@@ -76,7 +61,7 @@ function pageLoaded() {
 
           if(username == 'admin'){
             cont.textContent = data.data[i][1];
-            cont.appendChild(delete_button);
+          
           }
           if(data.data[i][1] == username){
             cont.textContent = 'You';
@@ -91,6 +76,7 @@ function pageLoaded() {
           var iconElement = document.createElement('i');
           iconElement.textContent = 'x'
           delete_button.appendChild(iconElement);
+          cont.appendChild(delete_button);
           delete_button.addEventListener('click', (function(i) {
             return function() {
                 deleteData(date, data.data[i][0]);
@@ -101,8 +87,6 @@ function pageLoaded() {
         }
       }
     }
-
-  
   }
   // Utility functions
   
