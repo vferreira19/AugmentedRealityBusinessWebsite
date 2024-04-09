@@ -101,7 +101,7 @@ a{
 p{
     margin:auto;
 }
-#inputs_div{
+#customer_slots{
     display: flex;
     justify-content: space-evenly;
     margin: 2%;
@@ -133,7 +133,7 @@ p{
 .main{
     text-align: right;
     font-size: x-large;
-    color: red;
+    color: white;
     
 
 }

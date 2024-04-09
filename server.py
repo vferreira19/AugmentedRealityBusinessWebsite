@@ -127,7 +127,7 @@ def delete_data():
         time = data.get('time')
         # Assuming delete() function handles deletion and potential errors
         delete(date, time)
-        print(data)
+        print(date, time)
         return jsonify({'status': 'success'})
     except Exception as e:
         print('Error occurred during deletion:', e)

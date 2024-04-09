@@ -3,6 +3,7 @@
 
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href='../static/css/customer_slots.css'>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/mystyle.css') }}">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia|Alegreya">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -37,10 +38,49 @@
     <p>Please select a date from the calendar above to view or add an entry</p>
   </div><br>
 
+
   
+  <div id="customer_slots"></div>
   
-  <div id="inputs_div">  
-  </div>
+
+  <div class="container">
+    <div class="containers">09:00
+      <div id="s9" class="icontainers"></div>
+    </div>
+    <div class="containers">10:00
+      <div id="s10" class="icontainers"></div>
+    </div>
+    <div class="containers">11:00 
+    <div id="s11" class="icontainers"></div>
+    </div>
+    <div class="containers">12:00
+      <div id="s12" class="icontainers"></div>
+    </div>
+    <div class="containers">13:00 
+      <div id="s13" class="icontainers"></div>
+    </div>
+    <div class="containers">14:00 
+      <div id="s14" class="icontainers"></div>
+    </div>
+    <div class="containers">15:00 
+      <div id="s15" class="icontainers"></div>
+    </div>
+    <div class="containers">16:00 
+      <div id="s16" class="icontainers"></div>
+    </div>
+    <div class="containers">17:00 
+      <div id="s17" class="icontainers"></div>
+    </div>
+    <div class="containers">18:00 
+      <div id="s18" class="icontainers"></div>
+    </div>
+    <div class="containers">19:00 
+      <div id="s19" class="icontainers"></div>
+    </div>
+    <div class="containers">20:00 
+      <div id="s20" class="icontainers"></div>
+    </div>
+</div>
   
   <div>
     <h4 id="new_booking">New Booking</h4>
@@ -78,7 +118,6 @@
         </select>
       </div>
       <div class="input_container">
-        <!-- <button id="submitbtn"><i class="fa fa-check"></i></button> -->
         <a id="submitbtn" class="fancy" href="#">
           <span class="top-key"></span>
           <span class="text">Make reservation</span>
@@ -94,6 +133,7 @@
   <div id="data-container" data-year="{{ year }}" data-month="{{ month }}" data-day="{{ day }}"></div>
 
   <script src="{{ url_for('static', filename='js/data.js') }}"></script>
+
 
 </body>
 

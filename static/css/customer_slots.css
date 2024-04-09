@@ -1,0 +1,24 @@
+    .container{
+    min-height: 300px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+
+   }
+   .containers{
+    text-align: center;
+    margin-top: 10px;
+    width: 170px;
+    height: 102px;
+   }
+
+   .icontainers{
+    background-color: rgb(119, 193, 119);
+    width: 170px;
+    height: 82px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+   }
