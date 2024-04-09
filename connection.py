@@ -49,6 +49,28 @@ def select(date):
         cursor.close()
         connection.close()
 
+def select_user(username):
+    connection = create_connection()
+    cursor = connection.cursor()
+
+    try:
+        # Check if the table exists, and create it if it doesn't
+        try:
+            cursor.execute(sql.SQL("SELECT 1 FROM {} LIMIT 1").format(sql.Identifier('day_entries')))
+        except UndefinedTable:
+           
+            connection.commit()
+
+        # Your original select query
+        query = f"SELECT phone, email_address FROM users WHERE username='{username}'ORDER BY time ASC"
+        cursor.execute(query)
+        result = cursor.fetchall()
+
+        return result if result else None
+    finally:
+        cursor.close()
+        connection.close()
+        
 def delete(date, time):
 
     connection = create_connection()

@@ -3,11 +3,13 @@ function pageLoaded() {
   document.getElementById('icon').addEventListener('click', openNav);
   document.getElementById('closeBtn').addEventListener('click', closeNav);
 }
-console.log("username: ", username);
+
 const today = new Date();
 const currentMonth = today.getMonth();
 const currentYear = today.getFullYear();
 const diaryEntryElement = document.getElementById('diaryEntry');
+
+console.log("username: ", username);
 
 function getDaysInMonth(month, year) {
   return new Date(year, month + 1, 0).getDate();

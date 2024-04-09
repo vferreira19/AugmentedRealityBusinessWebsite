@@ -20,8 +20,6 @@ function pageLoaded() {
   displayDiaryEntry(date)
 
  
-
-
   function displayDiaryEntry(date) {
     diaryEntryElement.innerHTML = '';
     
@@ -35,6 +33,7 @@ function pageLoaded() {
     header.innerHTML = date.toDateString();
   
     retrieveData(formattedDate);
+
 
     const submitbtn = document.getElementById('submitbtn');
     
@@ -63,6 +62,14 @@ function pageLoaded() {
       
       const username = data.username;
       const retrieved_data = data.data;
+      const phone = data.phone;
+      console.log('phone:', phone);
+      console.log('username:', username);
+      const input = document.getElementById('customer_name');
+      input.value = username;
+      const description = document.getElementById('description');
+      description.value = phone;
+
 
     if (retrieved_data){
       // Iterate through each object in the 'data' array
@@ -97,7 +104,7 @@ function pageLoaded() {
           rowContainer.appendChild(delete_button);
 
           // Append the object container to the main container
-          if(username=='vitor'){
+          if(username=='admin'){
             container.appendChild(rowContainer);  
           }
 

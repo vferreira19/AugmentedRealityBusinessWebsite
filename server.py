@@ -3,7 +3,7 @@ import psycopg2
 from psycopg2 import sql
 from psycopg2.errors import UndefinedTable
 import hashlib
-from connection import select, insert, delete
+from connection import select, insert, delete, select_user
 
 app = Flask(__name__)
 app.secret_key = '123456'
@@ -86,12 +86,18 @@ def retrieve_data():
         # Check if the user is logged in and retrieve the username from the session
         username = session.get('username', None)
         
+        conn = psycopg2.connect('postgres://ukgghlwe:XXMNFCmwhbl2fXd2dHzg8tCoTUWavZZC@trumpet.db.elephantsql.com/ukgghlwe')
+        c = conn.cursor()
+        c.execute('SELECT phone FROM users WHERE username=%s', (username,))
+        phone = c.fetchone()
+        conn.close()    
+        
         if data is not None:  
             # Return data and username in JSON format
-            return jsonify({'data': data, 'username': username})
+            return jsonify({'data': data, 'username': username, 'phone': phone})
         else:
             # Return an empty response if the data doesn't exist
-            return jsonify({'data': None, 'username': username})
+            return jsonify({'data': None, 'username': username, 'phone': phone })
     except Exception as e:
         return jsonify({'error': str(e)}), 500  # Return error message with status code 500 if an exception occurs
 
