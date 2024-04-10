@@ -32,7 +32,7 @@ def authenticate_user(username, password):
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
-        username = request.form['username']
+        username = request.form['username'].lower()
         password = request.form['password']
         phone = request.form['phone']
         email_address = request.form['email_address']
@@ -72,6 +72,36 @@ def home():
 def customer_list():
     return render_template('customer_list.html')
 
+@app.route('/my_bookings.html')
+def my_bookings():
+    return render_template('my_bookings.html')
+
+@app.route('/my_bookings', methods=['POST'])
+def get_bookings():
+    try:
+        if 'username' in session:
+            username = session['username']
+            
+        
+        conn = psycopg2.connect('postgres://ukgghlwe:XXMNFCmwhbl2fXd2dHzg8tCoTUWavZZC@trumpet.db.elephantsql.com/ukgghlwe')
+        c = conn.cursor()
+    
+        c.execute('SELECT * FROM day_entries where customer_name=%s',(username,))
+        users = c.fetchall()
+        conn.close()
+
+        if users is not None:  
+            # Return data and username in JSON format
+            return jsonify({'data': users})
+        else:
+            # Return an empty response if the data doesn't exist
+            return jsonify({'data': None})
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500  # Return error message with status code 500 if an exception occurs
+
+
+
+
 @app.route('/data')
 def data_page():
     year = request.args.get('year')
@@ -107,16 +137,17 @@ def retrieve_data():
         return jsonify({'error': str(e)}), 500  # Return error message with status code 500 if an exception occurs
 
 @app.route('/get_users', methods=['POST'])
-def retrieve_users():
+def get_users():
     try:
-        # Retrieve data based on the date from the request form
-
+       
         conn = psycopg2.connect('postgres://ukgghlwe:XXMNFCmwhbl2fXd2dHzg8tCoTUWavZZC@trumpet.db.elephantsql.com/ukgghlwe')
         c = conn.cursor()
         c.execute('SELECT * FROM users')
         users = c.fetchall()
-        conn.close()    
-        
+        conn.close()
+
+            
+
         if users is not None:  
             # Return data and username in JSON format
             return jsonify({'data': users})

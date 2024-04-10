@@ -12,15 +12,15 @@ retrieveData();
 
 
 
-function retrieveData(date){
-    date = date
+function retrieveData(){
+
     fetch('/get_users', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
         },
         body: new URLSearchParams({
-            'date': date,  // Replace with the actual date or get it dynamically
+            // Replace with the actual date or get it dynamically
         }),
     })
     .then(response => {
