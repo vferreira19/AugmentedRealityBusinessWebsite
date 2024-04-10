@@ -100,8 +100,6 @@ def get_bookings():
         return jsonify({'error': str(e)}), 500  # Return error message with status code 500 if an exception occurs
 
 
-
-
 @app.route('/data')
 def data_page():
     year = request.args.get('year')

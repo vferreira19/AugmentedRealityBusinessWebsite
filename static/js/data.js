@@ -51,12 +51,14 @@ function pageLoaded() {
       container.innerHTML = '';
    
       const username = data.username;
-
+      console.log(data.data[0][2])
     if(data && data.data && typeof data.data[0] !== 'undefined') {
 
       for(i=0; i<=11; i++){
         if(data.data[i]){
           const cont = document.getElementById('s' + data.data[i][0]);
+          const cont2 = document.createElement('p');
+          cont2.classList.add('description')
           const delete_button = document.createElement('btn');
           delete_button.className = 'main';
           var iconElement = document.createElement('i');
@@ -71,13 +73,17 @@ function pageLoaded() {
             };
         })(i));
           if(username == 'admin'){
-            cont.textContent = data.data[i][1];
+            str = data.data[i][1]
+            cont.textContent = str.charAt(0).toUpperCase() + str.slice(1);
+            cont2.textContent = data.data[i][2];
+            cont.appendChild(cont2);
             cont.appendChild(delete_button);
           
           }
           if(data.data[i][1] == username){
             cont.textContent = 'You';
             cont.style.backgroundColor = "purple";
+            cont.appendChild(delete_button);
           }else{
             cont.style.backgroundColor = "rgb(243, 38, 38)";
           }

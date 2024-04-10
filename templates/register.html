@@ -15,7 +15,7 @@
 
     <form class="containers" action="/register" method="POST">
         <div class="input-wrapper">
-            <input type="text" placeholder="username" name="username" class="form-control" required>
+            <input type="text" placeholder="username (lowercase only)" name="username" class="form-control" pattern="[a-z]*" title="Please enter only lowercase letters" required>
         </div>
         
         <div class="input-wrapper">
