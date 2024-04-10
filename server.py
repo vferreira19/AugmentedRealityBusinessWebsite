@@ -68,8 +68,8 @@ def home():
         return render_template('index.html', username=username)
     return redirect('/login')
     
-@app.route('/popup_content.html')
-def popup_content():
+@app.route('/customer_list.html')
+def customer_list():
     return render_template('customer_list.html')
 
 @app.route('/data')
@@ -157,13 +157,7 @@ def delete_data():
     except Exception as e:
         print('Error occurred during deletion:', e)
         return jsonify({'status': 'error', 'message': str(e)}), 500
-    
-@app.route('/clear_calendar')
-def clear_calendar():
-    drop()
-    print('Table deleted')
-    
-    return jsonify({'message': 'Table deleted'})
+
 
 
 if __name__ == '__main__':
