@@ -123,8 +123,8 @@ p{
 
 #add{
     display: flex;
-    justify-content: space-around;
-
+    flex-direction: column;
+    align-items: center;
 }
 
 .main:hover{
@@ -293,20 +293,15 @@ td:hover, .calendar-btn:hover  {
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
-    background-color: transparent;
-    border: none;
-    border-bottom: 3px solid #000; /* Adjust border color as needed */
+    background-color: white;
     padding: 5px;
-    font-size: 16px; /* Adjust font size as needed */
-    width: 200%;
+    font-size: 16px;
+    border-color: transparent;
+    width: 200px;
     height: 50px;
     display: flex;
   }
   
-  .styled-select:focus {
-    outline: none;
-  }
-
 
 .briefing{
 
@@ -314,76 +309,9 @@ td:hover, .calendar-btn:hover  {
     margin: 1%;
 }
 
-.input-container {
-    position: relative;
-    width: clamp(100px, 100%, 200px);
-  }
-  
-  .input {
-    padding: 10px;
-    height: 40px;
-    width: clamp(100px, 100%, 200px);
-    border: 2px solid black;
-    border-top: none;
-    font-size: 16px;
-    background: transparent;
-    outline: none;
-    box-shadow: 7px 7px 0px 0px black;
-    transition: all 0.5s;
-  }
-  
-  .input:focus {
-    box-shadow: none;
-    transition: all 0.5s;
-  }
-  
-  .label {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    color: black;
-    transition: all 0.5s;
-    transform: scale(0);
-    z-index: -1;
-  }
-  
-  .input-container .top-line {
-    position: absolute;
-    content: "";
-    background-color: black;
-    width: 100%;
-    height: 2px;
-    right: 0;
-    top: 0;
-    transition: all 0.5s;
-  }
-  
-  .input-container input[type="text"]:focus~.top-line {
-    width: 35%;
-    transition: all 0.5s;
-  }
-  
-  .input-container .under-line {
-    position: absolute;
-    content: "";
-    background-color: black;
-    width: 0%;
-    height: 2px;
-    right: 0;
-    bottom: 0;
-    transition: all 0.5s;
-  }
-  
-  .input-container input[type="text"]:focus~.under-line {
-    width: 100%;
-    transition: all 0.5s;
-  }
-  
-  .input-container input[type="text"]:focus~.label {
-    top: -10px;
-    transform: scale(1);
-    transition: all 0.5s;
-  }
+.input-container{
+    margin-top: 20px;
+}
 
   .fancy {
     background-color: transparent;
