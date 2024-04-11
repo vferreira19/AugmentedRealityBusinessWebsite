@@ -36,11 +36,31 @@ def register():
         password = request.form['password']
         phone = request.form['phone']
         email_address = request.form['email_address']
-        register_user(username, password, phone, email_address)
-        return redirect('/login')
+        if user_isUnique(username):
+            register_user(username, password, phone, email_address)
+            return redirect('/login')
+        else:
+            error_message = 'Username already exists. Please choose a different one.' 
+            return render_template('register.html', error_message=error_message)  
     
     return render_template('register.html')
 
+def user_isUnique(username):
+    try:
+        conn = psycopg2.connect('postgres://ukgghlwe:XXMNFCmwhbl2fXd2dHzg8tCoTUWavZZC@trumpet.db.elephantsql.com/ukgghlwe')
+        c = conn.cursor()
+        c.execute('SELECT username FROM users WHERE username=%s', (username,))
+        output = c.fetchone()
+        conn.close()
+        
+        if output == None:
+            return True
+        
+        return False
+    
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500   
+    
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':

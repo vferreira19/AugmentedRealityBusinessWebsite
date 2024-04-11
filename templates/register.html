@@ -11,6 +11,10 @@
     
     <div class="title">
         <h1>Register Page</h1>
+
+        {% if error_message %}
+        <p>{{ error_message }}</p>
+        {% endif %}
     </div>
 
     <form class="containers" action="/register" method="POST">
