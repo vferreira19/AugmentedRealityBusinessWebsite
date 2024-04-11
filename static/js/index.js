@@ -65,7 +65,7 @@ function displayCalendar(month, year) {
     table.appendChild(rowElement);
   }
 
-  addEventListener('click', function (event) {
+  addEventListener('touchstart click', function (event) {
     if (event.target.classList.contains('currentDay')) {
       const currentDay = event.target.innerHTML;
       const month = temp_month;
