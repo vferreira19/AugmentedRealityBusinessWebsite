@@ -26,15 +26,15 @@ function retrieveData(){
         }
       })
     .then(data => {
-
       
+      console.log(data.data)
+      console.log(data.data[0][0])
       for (i=0; i < data.data.length; i++){
         
-        const time = data.data[i][0]
-        const date = data.data[i][1]
-        const name = data.data[i][2]
+        const time = data.data[i][1]
+        const date = data.data[i][2]
         const description = data.data[i][3]
-
+        
         const row = table.insertRow();
 
         const cell1 = row.insertCell();

@@ -4,7 +4,7 @@ from psycopg2.errors import UndefinedTable
 
 def create_connection():
         
-    return psycopg2.connect('postgres://ukgghlwe:XXMNFCmwhbl2fXd2dHzg8tCoTUWavZZC@trumpet.db.elephantsql.com/ukgghlwe')
+    return psycopg2.connect('postgres://fbwxshcw:3SfpQX-mjLRdwlEYMwSLxR7rKEZ8MQYO@flora.db.elephantsql.com/fbwxshcw')
 
 def insert(date, customer_name, description, time):
 
@@ -78,7 +78,7 @@ def delete(date, time):
 
     try:
 
-        query = f"DELETE FROM day_entries WHERE date='{date}' and time='{time}'"
+        query = f"DELETE FROM booking WHERE date='{date}' and time='{time}'"
         cursor.execute(query)
         connection.commit()
 

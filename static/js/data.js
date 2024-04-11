@@ -74,6 +74,7 @@ function pageLoaded() {
         })(i));
           if(username == 'admin'){
             str = data.data[i][1]
+            console.log(data.data[i])
             cont.textContent = str.charAt(0).toUpperCase() + str.slice(1);
             cont2.textContent = data.data[i][2];
             cont.appendChild(cont2);
@@ -182,7 +183,7 @@ function deleteData(date, time) {
     time: time,
     text: 'message',
   };
-  console.log(data);
+  console.log(date);
   fetch('/delete_data', {
     method: 'POST',
     headers: {
@@ -198,6 +199,7 @@ function deleteData(date, time) {
     })
     .then(responseData => {
       console.log('Delete operation successful:', responseData);
+      
     })
     .catch(error => {
     });
