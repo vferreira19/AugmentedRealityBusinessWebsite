@@ -11,6 +11,7 @@
   <title>Barber $hop</title>
   <script>
     window.username = '{{username}}';
+    
   </script>
 </head>
 
@@ -32,14 +33,14 @@
     <div id="add">
 
       <div class="input-container">
-        <input  type="text" id="customer_name" name="text" class="input" pattern="[a-z]*">
+        <input  type="hidden" id="customer_name" name="text" class="input" value="{{ username }}" pattern="[a-z]*">
         <label class="label"></label>
         <div class="top-line"></div>
         <div class="under-line"></div>
       </div>
 
       <div class="input-container">
-        <input type="text"  id="description" name="text" class="input"> 
+        <input type="text"  id="description" name="text" class="input" placeholder="description"> 
         <label class="label"></label>
         <div class="top-line"></div>
         <div class="under-line"></div>

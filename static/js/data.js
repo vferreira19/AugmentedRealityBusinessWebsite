@@ -51,7 +51,7 @@ function pageLoaded() {
       container.innerHTML = '';
    
       const username = data.username;
-      console.log(data.data[0][2])
+
     if(data && data.data && typeof data.data[0] !== 'undefined') {
 
       for(i=0; i<=11; i++){

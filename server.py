@@ -99,16 +99,16 @@ def get_bookings():
     except Exception as e:
         return jsonify({'error': str(e)}), 500  # Return error message with status code 500 if an exception occurs
 
-
 @app.route('/data')
 def data_page():
     year = request.args.get('year')
     month = request.args.get('month')
     day = request.args.get('day')
 
-    # Use the values as needed
+    if 'username' in session:
+        username = session['username']
 
-    return render_template('data.html', year=year, month=month, day=day)
+    return render_template('data.html', year=year, month=month, day=day, username=username)
 
 @app.route('/retrieve_data', methods=['POST'])
 def retrieve_data():
@@ -155,7 +155,6 @@ def get_users():
     except Exception as e:
         return jsonify({'error': str(e)}), 500  # Return error message with status code 500 if an exception occurs
 
-
 @app.route('/insert_data', methods=['POST'])
 def insert_data():
     try:
@@ -186,8 +185,6 @@ def delete_data():
     except Exception as e:
         print('Error occurred during deletion:', e)
         return jsonify({'status': 'error', 'message': str(e)}), 500
-
-
 
 if __name__ == '__main__':
     app.run(debug=True)
