@@ -65,7 +65,32 @@ function displayCalendar(month, year) {
     table.appendChild(rowElement);
   }
 
-  addEventListener('touchstart click', function (event) {
+  addEventListener('click', function (event) {
+    if (event.target.classList.contains('currentDay')) {
+      const currentDay = event.target.innerHTML;
+      const month = temp_month;
+      const year = temp_year;
+
+      // Remove selected class from previously selected currentDay
+      const selectedDay = document.querySelector('.selected');
+      if (selectedDay) {
+        selectedDay.classList.remove('selected');
+      }
+
+      // Add selected class to selected currentDay
+      event.target.classList.add('selected');
+
+         // Construct the URL with query parameters
+         const url = 'data?' +
+         'year=' + encodeURIComponent(year) +
+         '&month=' + encodeURIComponent(month) +
+         '&day=' + encodeURIComponent(currentDay);
+
+     // Redirect to the new page
+     window.location.href = url;
+    }
+  });
+  addEventListener('touchstart', function (event) {
     if (event.target.classList.contains('currentDay')) {
       const currentDay = event.target.innerHTML;
       const month = temp_month;
