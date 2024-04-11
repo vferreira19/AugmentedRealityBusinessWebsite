@@ -1,0 +1,31 @@
+CREATE TABLE users(
+    user_id SERIAL PRIMARY KEY,
+    username VARCHAR(50),
+    password  VARCHAR(200),
+    phone VARCHAR(50),
+    email_address VARCHAR(50)
+);
+
+CREATE TABLE booking(
+    booking_id SERIAL PRIMARY KEY,
+    time VARCHAR(50),
+    date  VARCHAR(50),
+    description VARCHAR(50),
+    user_id INT REFERENCES users(user_id),
+    CONSTRAINT unique_date_time UNIQUE (date, time)
+);
+
+
+
+INSERT INTO users(username, password, phone, email_address) VALUES ('beatriz', '123456', '0733123900', 'apul@gmail.com');
+INSERT INTO users(username, password, phone, email_address) VALUES ('vitor', '123456', '0733123900', 'apul@gmail.com');
+INSERT INTO users(username, password, phone, email_address) VALUES ('joao', '123456', '0733123900', 'apul@gmail.com');
+INSERT INTO users(username, password, phone, email_address) VALUES ('tiago', '123456', '0733123900', 'apul@gmail.com');
+
+INSERT INTO booking(time, date, description, user_id) VALUES ('9', '2024-04-11', 'Mullet', 5);
+INSERT INTO booking(time, date, description, user_id) VALUES ('10', '2024-04-11', 'Skin fade', 5);
+INSERT INTO booking(time, date, description, user_id) VALUES ('9', '2024-04-12', 'Skin fade', 5);
+INSERT INTO booking(time, date, description, user_id) VALUES ('10', '2024-04-12', 'Skin fade', 5);
+
+SELECT * FROM booking
+INNER JOIN users ON users.user_id = booking.user_id;
