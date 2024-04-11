@@ -4,13 +4,7 @@ function pageLoaded(){
 
 const table = document.getElementById('table');
 
-
-
-
-
 retrieveData();
-
-
 
 function retrieveData(){
     username = 'Vitor'

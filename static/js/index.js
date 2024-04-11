@@ -9,8 +9,6 @@ const currentMonth = today.getMonth();
 const currentYear = today.getFullYear();
 const diaryEntryElement = document.getElementById('diaryEntry');
 
-console.log("username: ", username);
-
 function getDaysInMonth(month, year) {
   return new Date(year, month + 1, 0).getDate();
 }

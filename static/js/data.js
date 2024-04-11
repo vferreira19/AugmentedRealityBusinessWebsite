@@ -168,7 +168,7 @@ function pageLoaded() {
       processData(data);
   })
     .catch(error => {
-        console.error('Error:', error);
+  
     });
   
   pageLoaded();
