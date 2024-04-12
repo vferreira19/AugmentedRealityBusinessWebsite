@@ -9,8 +9,6 @@ colorPicker.addEventListener("change", function() {
 
     });
 
-const nailDesignImg = new Image();
-nailDesignImg.src = 'static/nail.png';
  
 
 const video3 = document.getElementsByClassName('input_video3')[0];
