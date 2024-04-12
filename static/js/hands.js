@@ -1,3 +1,14 @@
+var colorPicker = document.getElementById("colorPicker");
+var selectedColor = 'black';
+
+colorPicker.addEventListener("change", function() {
+      // Retrieve the selected color value
+      selectedColor = colorPicker.value;
+      
+      // Do something with the selected color value
+
+    });
+
 const nailDesignImg = new Image();
 nailDesignImg.src = 'static/nail.png';
  
@@ -6,6 +17,7 @@ const video3 = document.getElementsByClassName('input_video3')[0];
 const out3 = document.getElementsByClassName('output3')[0];
 
 const controlsElement3 = document.getElementsByClassName('control3')[0];
+
 const canvasCtx3 = out3.getContext('2d');
 const fpsControl = new FPS();
 
@@ -28,30 +40,26 @@ function onResultsHands(results) {
 
           // Draw the approximate nail positions for each finger
           const nailLandmarks = [
-              landmarks[4],  // Thumb tip
+              landmarks[4],
               landmarks[8],  // Index finger tip
               landmarks[12], // Middle finger tip
               landmarks[16], // Ring finger tip // Ring finger tip
               landmarks[20]  // Little finger (pinky) tip
           ];
           
-          
-
+        
           // Draw the nail landmarks
           drawLandmarks(canvasCtx3, nailLandmarks, {
             color: (x) => {
                 // Calculate the distance from the camera (or another reference point)
                 const distance = x.from.z;
-                
-                console.log(distance);
                 // Define a threshold distance beyond which landmarks are considered distant
                 const distantThreshold = -0.05; // Adjust as needed
-                
                 // Define the color for distant landmarks
-                const distantColor = '#CCCCCC'; // Adjust as needed
+                const distantColor = '#00000000'; // Adjust as needed
                 
                 // Define the color for closer landmarks
-                const closeColor = isRightHand ? '#00FF00' : '#FF0000'; // Adjust as needed
+                const closeColor = isRightHand ? selectedColor : selectedColor; // Adjust as needed
                 
                 // Check if the landmark is distant and return the appropriate color
                 return distance > distantThreshold ? distantColor : closeColor;
@@ -59,13 +67,13 @@ function onResultsHands(results) {
             fillColor: (x) => {
               const distance = x.from.z;
               const distantThreshold = -0.05; // Adjust as needed
-              const distantColor = '#CCCCCC'; // Adjust as needed
-              const closeColor = isRightHand ? '#FF0000' : '#00FF00'; // Adjust as needed
+              const distantColor = '#00000000'; // Adjust as needed
+              const closeColor = isRightHand ? selectedColor : selectedColor; // Adjust as needed
               return distance > distantThreshold ? distantColor : closeColor;
                 
             },
             radius: (x) => {
-                return lerp(x.from.z, -0.15, 0.1, 8, 1);
+                return lerp(x.from.z, -0.15, 0.1, 10, 1);
             }
         });
         
@@ -102,5 +110,5 @@ const camera = new Camera(video3, {
 camera.start();
 
 
-    
+
   

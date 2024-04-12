@@ -12,6 +12,8 @@
   <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils@0.1/control_utils.js" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils@0.2/drawing_utils.js" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands@0.1/hands.js" crossorigin="anonymous"></script>
+
+
 </head>
 
 <body>
@@ -21,12 +23,19 @@
         <h1 id="page_heading">Barber $hop</h1>
     </a>
   </div>  
+  
+
 
   <div class="container" style="margin-top: 20px;">
 
 
+
     <div class="columns">
       
+      <div class="colorPicker">
+        <label for="colorPicker">Choose a color:</label>
+        <input type="color" id="colorPicker" name="colorPicker">
+      </div>
 
       <div class="column" style="visibility: hidden;">
         <article class="panel is-info">
@@ -39,14 +48,11 @@
       </div>
 
       <div class="column">
-        <article id="article" class="panel is-info">
-          <p class="panel-heading">
-            Nail detector
-          </p>
+
           <div class="panel-block">
             <canvas class="output3" width="550px" height="460px"></canvas>
           </div>
-        </article>
+
       </div>
 
     </div>
@@ -55,21 +61,25 @@
   <div style="visibility: hidden;" class="control3">
   </div>
 
+  <div class="color-picker"></div>
+  <div class="color-indicator" id="color-indicator"></div>
+  <div id="color-picker"></div>
+
   <style>
     .column{
       position: absolute;
       left: 278px;
       right: 278px;
     }
-
-
-
     .columns{
       display: flex;
       justify-content: center;
-
     }
-
+    .colorPicker{
+      position: absolute;
+      left: 0;
+      top: 40px;
+    }
   </style>
 
   <script type="text/javascript" src="../static/js/hands.js"></script>
