@@ -6,7 +6,6 @@ const video3 = document.getElementsByClassName('input_video3')[0];
 const out3 = document.getElementsByClassName('output3')[0];
 
 const controlsElement3 = document.getElementsByClassName('control3')[0];
-
 const canvasCtx3 = out3.getContext('2d');
 const fpsControl = new FPS();
 
@@ -32,18 +31,44 @@ function onResultsHands(results) {
               landmarks[4],  // Thumb tip
               landmarks[8],  // Index finger tip
               landmarks[12], // Middle finger tip
-              landmarks[16], // Ring finger tip
+              landmarks[16], // Ring finger tip // Ring finger tip
               landmarks[20]  // Little finger (pinky) tip
           ];
+          
+          
 
           // Draw the nail landmarks
           drawLandmarks(canvasCtx3, nailLandmarks, {
-              color: isRightHand ? '#00FF00' : '#FF0000',
-              fillColor: isRightHand ? '#FF0000' : '#00FF00',
-              radius: (x) => {
-                  return lerp(x.from.z, -0.15, .1, 10, 1);
-              }
-          });
+            color: (x) => {
+                // Calculate the distance from the camera (or another reference point)
+                const distance = x.from.z;
+                
+                console.log(distance);
+                // Define a threshold distance beyond which landmarks are considered distant
+                const distantThreshold = -0.05; // Adjust as needed
+                
+                // Define the color for distant landmarks
+                const distantColor = '#CCCCCC'; // Adjust as needed
+                
+                // Define the color for closer landmarks
+                const closeColor = isRightHand ? '#00FF00' : '#FF0000'; // Adjust as needed
+                
+                // Check if the landmark is distant and return the appropriate color
+                return distance > distantThreshold ? distantColor : closeColor;
+            },
+            fillColor: (x) => {
+              const distance = x.from.z;
+              const distantThreshold = -0.05; // Adjust as needed
+              const distantColor = '#CCCCCC'; // Adjust as needed
+              const closeColor = isRightHand ? '#FF0000' : '#00FF00'; // Adjust as needed
+              return distance > distantThreshold ? distantColor : closeColor;
+                
+            },
+            radius: (x) => {
+                return lerp(x.from.z, -0.15, 0.1, 8, 1);
+            }
+        });
+        
 
           // Draw the nail design image on top of each nail landmark
           for (const nailLandmark of nailLandmarks) {
@@ -65,7 +90,6 @@ function onResultsHands(results) {
 const hands = new Hands({locateFile: (file) => {
   return `https://cdn.jsdelivr.net/npm/@mediapipe/hands@0.1/${file}`;
 }});
-
 hands.onResults(onResultsHands);
 
 const camera = new Camera(video3, {
