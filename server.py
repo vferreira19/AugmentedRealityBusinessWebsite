@@ -252,5 +252,9 @@ def delete_data():
         print('Error occurred during deletion:', e)
         return jsonify({'status': 'error', 'message': str(e)}), 500
 
+@app.route('/augmented-reality')
+def camera_page():
+    return render_template('augmented_reality.html')
+
 if __name__ == '__main__':
     app.run(debug=True)
