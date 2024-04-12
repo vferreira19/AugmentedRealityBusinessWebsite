@@ -425,7 +425,14 @@ td:hover, .calendar-btn:hover  {
     width: 0;
    }
  
+   .augmented-reality{
+        margin-top: 100px;
+        margin-bottom: 100px;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
 
+   }
   
 @media (max-width: 500px){
     
