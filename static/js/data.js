@@ -26,6 +26,10 @@ function pageLoaded() {
   
     retrieveData(formattedDate);
 
+    submit_booking(formattedDate);
+  }
+  
+  function submit_booking(date){
     const submitbtn = document.getElementById('submitbtn');
 
     submitbtn.addEventListener('click', function(){
@@ -38,13 +42,12 @@ function pageLoaded() {
         if(slots_taken.includes(time.value)){
           alert('Slot is already taken');
         }else{
-        sendDataToFlask(formattedDate)
+        sendDataToFlask(date)
         }
       }
     });
-
   }
-  
+
   function processData(data){
     var container = document.getElementById('customer_slots');
       container.innerHTML = '';
@@ -153,8 +156,6 @@ function pageLoaded() {
       })
       .catch(error => {
         alert('Customer does not exist')
-      
-
       });
   }
   
