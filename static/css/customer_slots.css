@@ -9,6 +9,7 @@ p{
     flex-direction: row;
     justify-content: space-around;
     flex-wrap: wrap;
+    margin-bottom: 150px;
 
    }
    .containers{
