@@ -51,6 +51,13 @@ function pageLoaded() {
       container.innerHTML = '';
    
       const username = data.username;
+      const user_input = document.getElementById('customer_name')
+
+      if(username == 'admin'){
+        user_input.type = 'text'
+        user_input.value = ''
+      }
+
 
     if(data && data.data && typeof data.data[0] !== 'undefined') {
 
