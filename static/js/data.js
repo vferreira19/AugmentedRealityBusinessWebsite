@@ -91,7 +91,6 @@ function pageLoaded() {
 
           if(username == 'admin'){
             str = data.data[i][1]
-            console.log(data.data[i])
             cont.textContent = str.charAt(0).toUpperCase() + str.slice(1);
             cont2.textContent = data.data[i][2];
             cont.appendChild(cont2);
