@@ -34,7 +34,7 @@ function pageLoaded() {
         alert('Please choose a name.');
       }else{
 
-        if(slots_taken.includes(parseInt(time.value))){
+        if(slots_taken.includes(time.value)){
           alert('Slot is already taken');
         }else{
         sendDataToFlask(formattedDate)
