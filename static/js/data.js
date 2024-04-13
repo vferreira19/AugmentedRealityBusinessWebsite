@@ -33,6 +33,7 @@ function pageLoaded() {
     const submitbtn = document.getElementById('submitbtn');
 
     submitbtn.addEventListener('click', function(){
+
       const customer_name = document.getElementById('customer_name');
       const time = document.getElementById('time');
       if(customer_name.value == ''){
@@ -42,7 +43,9 @@ function pageLoaded() {
         if(slots_taken.includes(time.value)){
           alert('Slot is already taken');
         }else{
+
         sendDataToFlask(date)
+
         }
       }
     });
@@ -150,10 +153,10 @@ function pageLoaded() {
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
-
         return response.json();
       })
       .then(result => {
+
         if (result.status === "success"){
 
           location.reload();
@@ -162,7 +165,9 @@ function pageLoaded() {
         }
       })
       .catch(error => {
+
         alert('Customer does not exist')
+
       });
   }
   

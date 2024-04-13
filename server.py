@@ -216,15 +216,17 @@ def insert_data():
         conn = psycopg2.connect('postgres://fbwxshcw:3SfpQX-mjLRdwlEYMwSLxR7rKEZ8MQYO@flora.db.elephantsql.com/fbwxshcw')
         c = conn.cursor()
         
-        if customer_exists(customer_id):
-    
-            if user_id == 1:
+        if user_id == 1:
+            if customer_exists(customer_id):
                 c.execute("INSERT INTO booking (date, user_id, description, time) VALUES (%s, %s, %s, %s)",(date, customer_id, description, time))
             else:
-                c.execute("INSERT INTO booking (date, user_id, description, time) VALUES (%s, %s, %s, %s)",(date, user_id, description, time))
-
+                return jsonify({'status': 'error', 'message': 'Customer does not exist'})
         else:
-            return jsonify({'status': 'error', 'message': 'Customer does not exist'})
+            
+            c.execute("INSERT INTO booking (date, user_id, description, time) VALUES (%s, %s, %s, %s)",(date, user_id, description, time))
+
+
+        
            
         conn.commit()
         conn.close()
