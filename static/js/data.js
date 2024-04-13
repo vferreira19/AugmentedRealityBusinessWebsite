@@ -74,7 +74,6 @@ function pageLoaded() {
           delete_button.addEventListener('click', (function(i) {
             return function() {
                 deleteData(date, data.data[i][0]);
-                location.reload();
                 
             };
         })(i));
@@ -206,6 +205,7 @@ function deleteData(date, time) {
     })
     .then(responseData => {
       console.log('Delete operation successful:', responseData);
+      location.reload()
       
     })
     .catch(error => {
