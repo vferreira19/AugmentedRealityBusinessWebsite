@@ -125,7 +125,7 @@ function pageLoaded() {
       page_title: document.getElementById('page_heading').innerHTML,
       date: date,
       user_id: document.getElementById('customer_name').value,
-      customer_name: document.getElementById('customer_name').value,
+      customer_id: document.getElementById('customer_name').value,
       description: document.getElementById('description').value,
       time: document.getElementById('time').value,
     };

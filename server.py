@@ -209,14 +209,18 @@ def insert_data():
 
         date = data.get('date')
         user_id = session['user_id']
+        customer_id = data.get('customer_id')
         description = data.get('description')
         time = data.get('time')
 
         conn = psycopg2.connect('postgres://fbwxshcw:3SfpQX-mjLRdwlEYMwSLxR7rKEZ8MQYO@flora.db.elephantsql.com/fbwxshcw')
         c = conn.cursor()
-        c.execute(
-        "INSERT INTO booking (date, user_id, description, time) VALUES (%s, %s, %s, %s)",
-        (date, user_id, description, time))
+        
+        if user_id == 1:
+            c.execute("INSERT INTO booking (date, user_id, description, time) VALUES (%s, %s, %s, %s)",(date, customer_id, description, time))
+        else:
+            c.execute("INSERT INTO booking (date, user_id, description, time) VALUES (%s, %s, %s, %s)",(date, user_id, description, time))
+
         
         conn.commit()
         conn.close()
