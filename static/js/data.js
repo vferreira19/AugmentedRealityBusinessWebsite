@@ -69,6 +69,8 @@ function pageLoaded() {
         if(data.data[i]){
           const cont = document.getElementById('s' + data.data[i][0]);
           const cont2 = document.createElement('p');
+          const cont3 = document.createElement('p');
+
           cont2.classList.add('description')
           const delete_button = document.createElement('btn');
           delete_button.className = 'main';
@@ -93,7 +95,9 @@ function pageLoaded() {
             str = data.data[i][1]
             cont.textContent = str.charAt(0).toUpperCase() + str.slice(1);
             cont2.textContent = data.data[i][2];
+            cont3.textContent = data.data[i][3];
             cont.appendChild(cont2);
+            cont.appendChild(cont3);
             cont.appendChild(delete_button);
           }
 

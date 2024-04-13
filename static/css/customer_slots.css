@@ -16,7 +16,7 @@ p{
     text-align: center;
     margin-top: 10px;
     width: 170px;
-    height: 102px;
+    height: 172px;
    }
 
    .icontainers{
@@ -27,7 +27,7 @@ p{
     color: white;
     background-color: rgb(119, 193, 119);
     width: 170px;
-    height: 82px;
+    height: 142px;
     display: flex;
     flex-direction: column;
     justify-content: center;
