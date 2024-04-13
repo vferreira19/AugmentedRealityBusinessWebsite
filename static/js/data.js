@@ -75,10 +75,17 @@ function pageLoaded() {
           
           delete_button.addEventListener('click', (function(i) {
             return function() {
+
+              if (window.confirm("Are you sure you want to delete?")) {
+                // If user confirms, call deleteData function
                 deleteData(date, data.data[i][0]);
-                
+            } else {
+                // If user cancels, do nothing
+                console.log("Deletion cancelled");
+            }
             };
         })(i));
+
           if(username == 'admin'){
             str = data.data[i][1]
             console.log(data.data[i])
@@ -86,8 +93,8 @@ function pageLoaded() {
             cont2.textContent = data.data[i][2];
             cont.appendChild(cont2);
             cont.appendChild(delete_button);
-          
           }
+
           if(data.data[i][1] == username && username != 'admin'){
             cont.textContent = 'You';
             cont.style.backgroundColor = "purple";
