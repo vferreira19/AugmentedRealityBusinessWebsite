@@ -51,6 +51,12 @@ function pageLoaded() {
       container.innerHTML = '';
    
       const username = data.username;
+      const user_input = document.getElementById('customer_name')
+
+      if(username=='admin'){
+        user_input.type = 'text'
+        user_input.value = ''
+      }
 
     if(data && data.data && typeof data.data[0] !== 'undefined') {
 
@@ -81,7 +87,7 @@ function pageLoaded() {
             cont.appendChild(delete_button);
           
           }
-          if(data.data[i][1] == username){
+          if(data.data[i][1] == username && username != 'admin'){
             cont.textContent = 'You';
             cont.style.backgroundColor = "purple";
             cont.appendChild(delete_button);
@@ -119,6 +125,7 @@ function pageLoaded() {
     const data = {
       page_title: document.getElementById('page_heading').innerHTML,
       date: date,
+      user_id: document.getElementById('customer_name').value,
       customer_name: document.getElementById('customer_name').value,
       description: document.getElementById('description').value,
       time: document.getElementById('time').value,
