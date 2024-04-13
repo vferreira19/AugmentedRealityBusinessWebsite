@@ -149,7 +149,7 @@ def get_bookings():
         c.execute('SELECT * FROM booking where user_id=%s',(user_id,))
         users = c.fetchall()
         conn.close()
-
+        
         if not users:
             print('There are no bookings for that user_id') 
         if users is not None:  
@@ -216,17 +216,18 @@ def insert_data():
         conn = psycopg2.connect('postgres://fbwxshcw:3SfpQX-mjLRdwlEYMwSLxR7rKEZ8MQYO@flora.db.elephantsql.com/fbwxshcw')
         c = conn.cursor()
         
-        if user_id == 1:
-            c.execute("INSERT INTO booking (date, user_id, description, time) VALUES (%s, %s, %s, %s)",(date, customer_id, description, time))
-        else:
-            c.execute("INSERT INTO booking (date, user_id, description, time) VALUES (%s, %s, %s, %s)",(date, user_id, description, time))
+        if customer_exists(customer_id):
+    
+            if user_id == 1:
+                c.execute("INSERT INTO booking (date, user_id, description, time) VALUES (%s, %s, %s, %s)",(date, customer_id, description, time))
+            else:
+                c.execute("INSERT INTO booking (date, user_id, description, time) VALUES (%s, %s, %s, %s)",(date, user_id, description, time))
 
-        
+        else:
+            return jsonify({'status': 'error', 'message': 'Customer does not exist'})
+           
         conn.commit()
         conn.close()
-        
-        
-        
         
         return jsonify({'status': 'success'})
         
@@ -260,5 +261,29 @@ def delete_data():
 def camera_page():
     return render_template('augmented_reality.html')
 
+def customer_exists(id):
+    
+        try:
+            users = []
+            
+            conn = psycopg2.connect('postgres://fbwxshcw:3SfpQX-mjLRdwlEYMwSLxR7rKEZ8MQYO@flora.db.elephantsql.com/fbwxshcw')
+            c = conn.cursor()
+            c.execute('SELECT user_id FROM users')
+            output = c.fetchall()
+            conn.close()
+            
+            for i in output:
+                users.append(str(i[0])) 
+            
+            if id in users:
+                return True
+            else:
+                return False
+    
+        except Exception as e:
+            return jsonify({'error': str(e)}), 500  
+    
+    
+    
 if __name__ == '__main__':
     app.run(debug=True)

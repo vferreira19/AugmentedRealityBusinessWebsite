@@ -10,6 +10,7 @@ function pageLoaded() {
   
   const date = new Date(year, month, day);
   let slots_taken = [];
+
   displayDiaryEntry(date);
 
   function displayDiaryEntry(date) {
@@ -31,16 +32,14 @@ function pageLoaded() {
       const customer_name = document.getElementById('customer_name');
       const time = document.getElementById('time');
       if(customer_name.value == ''){
-        alert('Please choose a name.');
+        alert('Please choose a customer.');
       }else{
 
         if(slots_taken.includes(time.value)){
           alert('Slot is already taken');
         }else{
         sendDataToFlask(formattedDate)
-        location.reload();
-        alert('You successfully booked your session. We are looking forward to see you.')
-      }
+        }
       }
     });
 
@@ -141,12 +140,20 @@ function pageLoaded() {
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
+
         return response.json();
       })
       .then(result => {
+        if (result.status === "success"){
 
+          location.reload();
+          alert('You successfully booked your session. We are looking forward to see you.')
+        
+        }
       })
       .catch(error => {
+        alert('Customer does not exist')
+      
 
       });
   }
