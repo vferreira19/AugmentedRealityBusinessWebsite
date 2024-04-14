@@ -91,7 +91,20 @@ function pageLoaded() {
             };
         })(i));
 
+        
+          if(data.data[i][1] == username && username != 'admin'){
+            cont.textContent = 'You';
+            cont.style.backgroundColor = "purple";
+            cont.appendChild(delete_button);
+          }else{
+            cont.style.backgroundColor = "rgb(243, 38, 38)";
+          }
+          
+
           if(username == 'admin'){
+            if(data.data[i][4]){
+              cont.style.backgroundColor = 'purple'
+            }
             str = data.data[i][1]
             cont.textContent = str.charAt(0).toUpperCase() + str.slice(1);
             cont2.textContent = data.data[i][2];
@@ -101,16 +114,7 @@ function pageLoaded() {
             cont.appendChild(delete_button);
           }
 
-          if(data.data[i][1] == username && username != 'admin'){
-            cont.textContent = 'You';
-            cont.style.backgroundColor = "purple";
-            cont.appendChild(delete_button);
-          }else{
-            cont.style.backgroundColor = "rgb(243, 38, 38)";
-          }
           slots_taken.push(data.data[i][0]);
-
-
         }
       }
     }

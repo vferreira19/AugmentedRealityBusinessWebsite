@@ -184,7 +184,7 @@ def retrieve_data():
 
         conn = psycopg2.connect('postgres://fbwxshcw:3SfpQX-mjLRdwlEYMwSLxR7rKEZ8MQYO@flora.db.elephantsql.com/fbwxshcw')
         c = conn.cursor()
-        c.execute('SELECT booking.time, users.username, users.phone, booking.description FROM booking INNER JOIN users ON users.user_id = booking.user_id WHERE booking.date = %s', 
+        c.execute('SELECT booking.time, users.username, users.phone, booking.description, added_by_admin FROM booking INNER JOIN users ON users.user_id = booking.user_id WHERE booking.date = %s', 
     (date,)
 )
         data = c.fetchall()
@@ -213,25 +213,27 @@ def insert_data():
         description = data.get('description')
         time = data.get('time')
 
+        added_by_admin = False
+        
         conn = psycopg2.connect('postgres://fbwxshcw:3SfpQX-mjLRdwlEYMwSLxR7rKEZ8MQYO@flora.db.elephantsql.com/fbwxshcw')
         c = conn.cursor()
         
         if user_id == 1:
+            added_by_admin = True
             if customer_exists(customer_id):
-                c.execute("INSERT INTO booking (date, user_id, description, time) VALUES (%s, %s, %s, %s)",(date, customer_id, description, time))
+                c.execute("INSERT INTO booking (date, user_id, description, time, added_by_admin) VALUES (%s, %s, %s, %s, %s)",(date, customer_id, description, time, True))
             else:
                 return jsonify({'status': 'error', 'message': 'Customer does not exist'})
         else:
-            
-            c.execute("INSERT INTO booking (date, user_id, description, time) VALUES (%s, %s, %s, %s)",(date, user_id, description, time))
-
-
-        
-           
+            c.execute("INSERT INTO booking (date, user_id, description, time, added_by_admin) VALUES (%s, %s, %s, %s, %s)",(date, user_id, description, time, False))
+  
         conn.commit()
         conn.close()
         
+
         return jsonify({'status': 'success'})
+
+            
         
     except psycopg2.Error as e:
         print("Database error:", e)
