@@ -5,6 +5,8 @@ from psycopg2.errors import UndefinedTable
 import hashlib
 from connection import select, insert, delete, select_user
 from datetime import datetime
+import vonage 
+import requests
 
 app = Flask(__name__)
 app.secret_key = '123456'
@@ -209,6 +211,7 @@ def insert_data():
 
         date = data.get('date')
         user_id = session['user_id']
+        username = session['username']
         customer_id = data.get('customer_id')
         description = data.get('description')
         time = data.get('time')
@@ -226,6 +229,9 @@ def insert_data():
                 return jsonify({'status': 'error', 'message': 'Customer does not exist'})
         else:
             c.execute("INSERT INTO booking (date, user_id, description, time, added_by_admin) VALUES (%s, %s, %s, %s, %s)",(date, user_id, description, time, False))
+            recipient_number = '447500658716'
+            message = 'A new booking has been added by ' + username + ' at ' + time + ':00' + ' for the following date: ' + date + '.'
+            send_whatsapp_message(recipient_number, message)
   
         conn.commit()
         conn.close()
@@ -245,14 +251,22 @@ def delete_data():
     try:
         
         data = request.get_json()
+        username = session['username']
         date = data.get('date')
         time = data.get('time')
         
         date_time_obj = datetime.fromisoformat(date)
         date_obj = date_time_obj.date()
         
+      
+        
+        if username != 'admin':
+            recipient_number = '447500658716'
+            message = 'A booking was cancelled by ' + username + ' for the following date: ' + date + '.'
+            send_whatsapp_message(recipient_number, message)
+        
         delete(date_obj, time)
-
+        print(date_obj)
 
         return jsonify({'status': 'success'})
     except psycopg2.Error as e:
@@ -286,7 +300,35 @@ def customer_exists(id):
     
         except Exception as e:
             return jsonify({'error': str(e)}), 500  
-    
+
+def send_whatsapp_message(recipient, message):
+
+    api_key = 'd7d71783'
+    api_secret = 'dtG0FbG5OCqPvQo7'
+
+
+    url = 'https://messages-sandbox.nexmo.com/v1/messages'
+
+    headers = {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+    }
+
+    data = {
+        "from": "14157386102",
+        "to": recipient,
+        "message_type": "text",
+        "text": message,
+        "channel": "whatsapp"
+    }
+
+    response = requests.post(url, headers=headers, auth=(api_key, api_secret), json=data)
+
+    print(response.status_code)
+    if response.status_code == 202:
+        print("Message sent successfully.")
+    else:
+        print(f"Failed to send message. Status code: {response.status_code}, Error: {response.text}")
     
     
 if __name__ == '__main__':
