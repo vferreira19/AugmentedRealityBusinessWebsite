@@ -252,9 +252,11 @@ def insert_data():
                 return jsonify({'status': 'error', 'message': 'Customer does not exist'})
         else:
             c.execute("INSERT INTO booking (date, user_id, description, time, added_by_admin) VALUES (%s, %s, %s, %s, %s)",(date, user_id, description_lowerCase, time, False))
-            recipient_number = '447500658716'
+            recipient_number1 = '447500658716'
+            recipient_number2 = '351919997819'
             message = 'A new booking has been added by ' + username + ' at ' + time + ':00' + ' for the following date: ' + date + '.'
-            send_whatsapp_message(recipient_number, message)
+            send_whatsapp_message(recipient_number1, message)
+            send_whatsapp_message(recipient_number2, message)
   
         conn.commit()
         conn.close()
