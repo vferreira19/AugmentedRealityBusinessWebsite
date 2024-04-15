@@ -105,7 +105,19 @@ const camera = new Camera(video3, {
   width: 550,
   height: 480
 });
-camera.start();
+
+  const button = document.createElement('button')
+  button.textContent = 'button'
+  const columns = document.getElementById('columns')
+  columns.appendChild(button)
+
+  button.addEventListener('click', function() {
+    // Your event handling code goes here
+    camera.start();
+    // You can add any other actions you want to perform when the button is clicked
+});
+  
+// camera.start();
 
 
 
