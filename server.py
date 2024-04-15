@@ -204,6 +204,29 @@ def retrieve_data():
     except Exception as e:
         return jsonify({'error': str(e)}), 500  # Return error message with status code 500 if an exception occurs
 
+@app.route('/get_services', methods=['POST'])
+def get_services():
+    try:
+ 
+
+        conn = psycopg2.connect('postgres://fbwxshcw:3SfpQX-mjLRdwlEYMwSLxR7rKEZ8MQYO@flora.db.elephantsql.com/fbwxshcw')
+        c = conn.cursor()
+        c.execute('SELECT description FROM booking')
+        data = c.fetchall()
+        conn.close()
+           
+        if data is not None:  
+            # Return data and username in JSON format
+            return jsonify({'data': data})
+        else:
+            # Return an empty response if the data doesn't exist
+            return jsonify({'data': None})
+        
+    except psycopg2.Error as e:
+        print("Database error:", e)
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500  # Return error message with status code 500 if an exception occurs
+
 @app.route('/insert_data', methods=['POST'])
 def insert_data():
     try:
@@ -215,7 +238,7 @@ def insert_data():
         customer_id = data.get('customer_id')
         description = data.get('description')
         time = data.get('time')
-
+        description_lowerCase = description.lower()
         added_by_admin = False
         
         conn = psycopg2.connect('postgres://fbwxshcw:3SfpQX-mjLRdwlEYMwSLxR7rKEZ8MQYO@flora.db.elephantsql.com/fbwxshcw')
@@ -224,11 +247,11 @@ def insert_data():
         if user_id == 1:
             added_by_admin = True
             if customer_exists(customer_id):
-                c.execute("INSERT INTO booking (date, user_id, description, time, added_by_admin) VALUES (%s, %s, %s, %s, %s)",(date, customer_id, description, time, True))
+                c.execute("INSERT INTO booking (date, user_id, description, time, added_by_admin) VALUES (%s, %s, %s, %s, %s)",(date, customer_id, description_lowerCase, time, True))
             else:
                 return jsonify({'status': 'error', 'message': 'Customer does not exist'})
         else:
-            c.execute("INSERT INTO booking (date, user_id, description, time, added_by_admin) VALUES (%s, %s, %s, %s, %s)",(date, user_id, description, time, False))
+            c.execute("INSERT INTO booking (date, user_id, description, time, added_by_admin) VALUES (%s, %s, %s, %s, %s)",(date, user_id, description_lowerCase, time, False))
             recipient_number = '447500658716'
             message = 'A new booking has been added by ' + username + ' at ' + time + ':00' + ' for the following date: ' + date + '.'
             send_whatsapp_message(recipient_number, message)

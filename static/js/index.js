@@ -8,6 +8,8 @@ const today = new Date();
 const currentMonth = today.getMonth();
 const currentYear = today.getFullYear();
 const diaryEntryElement = document.getElementById('diaryEntry');
+const services = []
+retrieveData();
 
 function getDaysInMonth(month, year) {
   return new Date(year, month + 1, 0).getDate();
@@ -153,6 +155,50 @@ function displayCalendar(month, year) {
   header.appendChild(prevMonth);
 }
 
+function countServices(services) {
+  const serviceCount = {};
+  services.forEach(service => {
+    serviceCount[service] = (serviceCount[service] || 0) + 1;
+  });
+  return serviceCount;
+}
+
+function drawChart(services){
+
+
+  const serviceCount = countServices(services);
+  const labels = Object.keys(serviceCount);
+  const data = Object.values(serviceCount);
+
+  // Initialize Chart
+  const ctx = document.getElementById('servicesChart').getContext('2d');
+  const servicesChart = new Chart(ctx, {
+    type: 'bar', // You can change this to 'pie', 'line', etc. depending on your preference
+    data: {
+      labels: labels,
+      datasets: [{
+        label: 'orders',
+        data: data,
+        backgroundColor: 'rgb(28, 136, 229)', // Adjust colors as needed
+        borderColor: 'rgb(28, 136, 229)',
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          display: false
+        }
+      },
+      plugins: {
+        legend: {
+          display: false // Remove legend labels
+        }
+      }
+    }
+  });
+}
+
 displayCalendar(currentMonth, currentYear);
 
 function openNav() {
@@ -162,5 +208,37 @@ function openNav() {
 function closeNav() {
   document.getElementById('mySidenav').style.width = '0';
 }
+function retrieveData(){
+  
+  fetch('/get_services', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: new URLSearchParams({
+            // Replace with the actual date or get it dynamically
+      }),
+  })
+  .then(response => {
+      
+      if (response.ok && response.headers.get('content-length') !== '0') {
+        return response.json();
+      } else {
+        return ''; 
+      }
+    })
+  .then(data => {
+    for (i in data.data){
+      services.push(data.data[i])
+    }
+    drawChart(services);
 
+})
+  .catch(error => {
+
+  });
+
+
+
+}
 pageLoaded();
