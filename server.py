@@ -7,13 +7,14 @@ from connection import select, insert, delete, select_user
 from datetime import datetime
 import vonage 
 import requests
+from collections import Counter
 
 app = Flask(__name__)
 app.secret_key = '123456'
 
 @app.route('/')
 def home():
-
+    get_dates()
     if 'username' in session:
         username = session['username']
         if username == 'admin':
@@ -354,7 +355,38 @@ def send_whatsapp_message(recipient, message):
         print("Message sent successfully.")
     else:
         print(f"Failed to send message. Status code: {response.status_code}, Error: {response.text}")
+
+@app.route('/get_dates', methods=['POST'])
+def get_dates():
     
+    try:
+
+        conn = psycopg2.connect('postgres://fbwxshcw:3SfpQX-mjLRdwlEYMwSLxR7rKEZ8MQYO@flora.db.elephantsql.com/fbwxshcw')
+        c = conn.cursor()
+        c.execute('SELECT date FROM booking')
+        data = c.fetchall()
+        conn.close()
+        
+        formatted_dates = [datetime.strptime(date[0], '%Y-%m-%d').strftime('%m-%d') for date in data]
+        date_counter = Counter(formatted_dates)
+        dates = list(date_counter.keys())
+        frequencies = list(date_counter.values())  
+        
+        data_json = {'dates': dates, 'frequencies': frequencies}
+        print(data_json)
+        if data is not None:  
+            # Return data and username in JSON format
+            return jsonify({'data': data_json})
+        else:
+            # Return an empty response if the data doesn't exist
+            return jsonify({'data': None})
+        
+    except psycopg2.Error as e:
+        print("Database error:", e)
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500  # Return error message with status code 500 if an exception occurs
+
+
     
 if __name__ == '__main__':
     app.run(debug=True)

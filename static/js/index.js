@@ -10,6 +10,7 @@ const currentYear = today.getFullYear();
 const diaryEntryElement = document.getElementById('diaryEntry');
 const services = []
 retrieveData();
+get_dates();
 
 function getDaysInMonth(month, year) {
   return new Date(year, month + 1, 0).getDate();
@@ -199,6 +200,36 @@ function drawChart(services){
   });
 }
 
+function drawChart2(dates, frequencies){
+
+    // Initialize a new Chart.js chart
+    var ctx = document.getElementById('datesChart').getContext('2d');
+    var datesChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: dates,
+        datasets: [{
+          label: 'Frequency',
+          data: frequencies,
+          backgroundColor: 'rgb(28, 136, 229)', // Adjust color as needed
+          borderColor: 'rgb(28, 136, 229)',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            display: false
+          }
+        },
+        plugins: {
+          legend: {
+            display: false // Remove legend labels
+          }
+        }
+      }
+    });
+  }
 displayCalendar(currentMonth, currentYear);
 
 function openNav() {
@@ -228,10 +259,44 @@ function retrieveData(){
       }
     })
   .then(data => {
+
     for (i in data.data){
+      if(data.data[i] != ''){
       services.push(data.data[i])
-    }
+    }}
     drawChart(services);
+
+})
+  .catch(error => {
+
+  });
+
+
+
+}
+function get_dates(){
+  
+  fetch('/get_dates', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: new URLSearchParams({
+            // Replace with the actual date or get it dynamically
+      }),
+  })
+  .then(response => {
+      
+      if (response.ok && response.headers.get('content-length') !== '0') {
+        return response.json();
+      } else {
+        return ''; 
+      }
+    })
+  .then(data => {
+    const dates = data.data.dates
+    const frequencies = data.data.frequencies
+    drawChart2(dates, frequencies)
 
 })
   .catch(error => {
