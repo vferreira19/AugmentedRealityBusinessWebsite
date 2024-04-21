@@ -55,10 +55,8 @@ function onResultsHands(results) {
                 const distantThreshold = -0.05; // Adjust as needed
                 // Define the color for distant landmarks
                 const distantColor = '#00000000'; // Adjust as needed
-                
                 // Define the color for closer landmarks
                 const closeColor = isRightHand ? selectedColor : selectedColor; // Adjust as needed
-                
                 // Check if the landmark is distant and return the appropriate color
                 return distance > distantThreshold ? distantColor : closeColor;
             },
@@ -71,7 +69,7 @@ function onResultsHands(results) {
                 
             },
             radius: (x) => {
-                return lerp(x.from.z, -0.15, 0.1, 10, 1);
+                return lerp(x.from.z, -0.15, 0.1, 7, 1);
             }
         });
         
@@ -106,18 +104,10 @@ const camera = new Camera(video3, {
   height: 480
 });
 
-  const button = document.createElement('button')
-  button.textContent = 'button'
-  const columns = document.getElementById('columns')
-  columns.appendChild(button)
 
-  button.addEventListener('click', function() {
-    // Your event handling code goes here
-    camera.start();
-    // You can add any other actions you want to perform when the button is clicked
-});
+  camera.start()
   
-// camera.start();
+
 
 
 

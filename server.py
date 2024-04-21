@@ -209,7 +209,6 @@ def retrieve_data():
 def get_services():
     try:
  
-
         conn = psycopg2.connect('postgres://fbwxshcw:3SfpQX-mjLRdwlEYMwSLxR7rKEZ8MQYO@flora.db.elephantsql.com/fbwxshcw')
         c = conn.cursor()
         c.execute('SELECT description FROM booking')
@@ -257,7 +256,7 @@ def insert_data():
             recipient_number2 = '351919997819'
             message = 'A new booking has been added by ' + username + ' at ' + time + ':00' + ' for the following date: ' + date + '.'
             send_whatsapp_message(recipient_number1, message)
-            send_whatsapp_message(recipient_number2, message)
+            
   
         conn.commit()
         conn.close()
@@ -292,7 +291,7 @@ def delete_data():
             send_whatsapp_message(recipient_number, message)
         
         delete(date_obj, time)
-        print(date_obj)
+
 
         return jsonify({'status': 'success'})
     except psycopg2.Error as e:
@@ -350,7 +349,6 @@ def send_whatsapp_message(recipient, message):
 
     response = requests.post(url, headers=headers, auth=(api_key, api_secret), json=data)
 
-    print(response.status_code)
     if response.status_code == 202:
         print("Message sent successfully.")
     else:
