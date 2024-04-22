@@ -15,6 +15,11 @@ CREATE TABLE booking(
     CONSTRAINT unique_date_time UNIQUE (date, time)
 );
 
+CREATE TABLE service(
+    service_id SERIAL PRIMARY KEY,
+    service_name VARCHAR(50) UNIQUE
+)
+
 
 
 INSERT INTO users(username, password, phone, email_address) VALUES ('beatriz', '123456', '0733123900', 'apul@gmail.com');

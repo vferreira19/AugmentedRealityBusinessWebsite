@@ -244,7 +244,7 @@ def insert_data():
         
         conn = psycopg2.connect('postgres://fbwxshcw:3SfpQX-mjLRdwlEYMwSLxR7rKEZ8MQYO@flora.db.elephantsql.com/fbwxshcw')
         c = conn.cursor()
-        
+
         if user_id == 1:
             added_by_admin = True
             if customer_exists(customer_id):
@@ -377,6 +377,32 @@ def get_services_list():
         except Exception as e:
             return jsonify({'error': str(e)}), 500  # Return error message with status code 500 if an exception occurs
 
+@app.route('/insert_service', methods=['POST'])
+def insert_service():
+    try:
+        
+        data = request.get_json()
+        
+        service = data.get('service')
+        
+    
+        print('service:', data)
+        conn = psycopg2.connect('postgres://fbwxshcw:3SfpQX-mjLRdwlEYMwSLxR7rKEZ8MQYO@flora.db.elephantsql.com/fbwxshcw')
+        c = conn.cursor()
+        
+        c.execute("INSERT INTO service (service_name) VALUES (%s)",(service,))
+
+        conn.commit()
+        conn.close()
+        
+        return jsonify({'status': 'success'})
+
+    except psycopg2.Error as e:
+        print("Database error:", e)
+        
+    except Exception as e:
+        return f'Error processing data: {str(e)}', 500
+
 
 @app.route('/get_dates', methods=['POST'])
 def get_dates():
@@ -407,8 +433,6 @@ def get_dates():
         print("Database error:", e)
     except Exception as e:
         return jsonify({'error': str(e)}), 500  # Return error message with status code 500 if an exception occurs
-
-
     
 if __name__ == '__main__':
     app.run(debug=True)

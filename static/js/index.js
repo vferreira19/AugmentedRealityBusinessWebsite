@@ -12,6 +12,11 @@ const services = []
 retrieveData();
 get_dates();
 
+function addService(){
+    const input = document.getElementById('new-service')
+    insert_service(input.value)
+}
+
 function getDaysInMonth(month, year) {
   return new Date(year, month + 1, 0).getDate();
 }
@@ -235,7 +240,6 @@ displayCalendar(currentMonth, currentYear);
 function openNav() {
   document.getElementById('mySidenav').style.width = '250px';
 }
-
 function closeNav() {
   document.getElementById('mySidenav').style.width = '0';
 }
@@ -301,6 +305,30 @@ function get_dates(){
 })
   .catch(error => {
 
+  });
+
+
+
+}
+
+function insert_service(service){
+  data = {
+    'service': service
+  }
+  fetch('/insert_service', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+  })
+  .then(response => {
+    })
+  .then(data => {
+      location.reload()
+})
+  .catch(error => {
+    console.error('Error:', error);
   });
 
 
