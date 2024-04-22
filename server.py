@@ -187,7 +187,7 @@ def retrieve_data():
 
         conn = psycopg2.connect('postgres://fbwxshcw:3SfpQX-mjLRdwlEYMwSLxR7rKEZ8MQYO@flora.db.elephantsql.com/fbwxshcw')
         c = conn.cursor()
-        c.execute('SELECT booking.time, users.username, users.phone, booking.description, added_by_admin FROM booking INNER JOIN users ON users.user_id = booking.user_id WHERE booking.date = %s', 
+        c.execute('SELECT booking.time, users.username, users.phone, service_name, added_by_admin FROM booking INNER JOIN users ON users.user_id = booking.user_id INNER JOIN service ON service.service_id = booking.service_id WHERE booking.date = %s', 
     (date,)
 )
         data = c.fetchall()
@@ -211,10 +211,11 @@ def get_services():
  
         conn = psycopg2.connect('postgres://fbwxshcw:3SfpQX-mjLRdwlEYMwSLxR7rKEZ8MQYO@flora.db.elephantsql.com/fbwxshcw')
         c = conn.cursor()
-        c.execute('SELECT description FROM booking')
+        c.execute('SELECT service_name FROM booking INNER JOIN service ON service.service_id = booking.service_id')
         data = c.fetchall()
         conn.close()
-           
+        
+        print(data)
         if data is not None:  
             # Return data and username in JSON format
             return jsonify({'data': data})
@@ -243,15 +244,15 @@ def insert_data():
         
         conn = psycopg2.connect('postgres://fbwxshcw:3SfpQX-mjLRdwlEYMwSLxR7rKEZ8MQYO@flora.db.elephantsql.com/fbwxshcw')
         c = conn.cursor()
-        
+
         if user_id == 1:
             added_by_admin = True
             if customer_exists(customer_id):
-                c.execute("INSERT INTO booking (date, user_id, description, time, added_by_admin) VALUES (%s, %s, %s, %s, %s)",(date, customer_id, description_lowerCase, time, True))
+                c.execute("INSERT INTO booking (date, user_id, service_id, time, added_by_admin) VALUES (%s, %s, %s, %s, %s)",(date, customer_id, description_lowerCase, time, True))
             else:
                 return jsonify({'status': 'error', 'message': 'Customer does not exist'})
         else:
-            c.execute("INSERT INTO booking (date, user_id, description, time, added_by_admin) VALUES (%s, %s, %s, %s, %s)",(date, user_id, description_lowerCase, time, False))
+            c.execute("INSERT INTO booking (date, user_id, service_id, time, added_by_admin) VALUES (%s, %s, %s, %s, %s)",(date, user_id, description_lowerCase, time, False))
             recipient_number1 = '447500658716'
             recipient_number2 = '351919997819'
             message = 'A new booking has been added by ' + username + ' at ' + time + ':00' + ' for the following date: ' + date + '.'
@@ -354,6 +355,55 @@ def send_whatsapp_message(recipient, message):
     else:
         print(f"Failed to send message. Status code: {response.status_code}, Error: {response.text}")
 
+@app.route('/get_services_list', methods=['POST'])
+def get_services_list():
+        try:
+            conn = psycopg2.connect('postgres://fbwxshcw:3SfpQX-mjLRdwlEYMwSLxR7rKEZ8MQYO@flora.db.elephantsql.com/fbwxshcw')
+            c = conn.cursor()
+            c.execute('SELECT service_id, service_name FROM service')
+            data = c.fetchall()
+            conn.close()
+            
+            print(data)
+            if data is not None:  
+                # Return data and username in JSON format
+                return jsonify({'data': data})
+            else:
+                # Return an empty response if the data doesn't exist
+                return jsonify({'data': None})
+        
+        except psycopg2.Error as e:
+            print("Database error:", e)
+        except Exception as e:
+            return jsonify({'error': str(e)}), 500  # Return error message with status code 500 if an exception occurs
+
+@app.route('/insert_service', methods=['POST'])
+def insert_service():
+    try:
+        
+        data = request.get_json()
+        
+        service = data.get('service')
+        
+    
+        print('service:', data)
+        conn = psycopg2.connect('postgres://fbwxshcw:3SfpQX-mjLRdwlEYMwSLxR7rKEZ8MQYO@flora.db.elephantsql.com/fbwxshcw')
+        c = conn.cursor()
+        
+        c.execute("INSERT INTO service (service_name) VALUES (%s)",(service,))
+
+        conn.commit()
+        conn.close()
+        
+        return jsonify({'status': 'success'})
+
+    except psycopg2.Error as e:
+        print("Database error:", e)
+        
+    except Exception as e:
+        return f'Error processing data: {str(e)}', 500
+
+
 @app.route('/get_dates', methods=['POST'])
 def get_dates():
     
@@ -371,7 +421,7 @@ def get_dates():
         frequencies = list(date_counter.values())  
         
         data_json = {'dates': dates, 'frequencies': frequencies}
-        print(data_json)
+
         if data is not None:  
             # Return data and username in JSON format
             return jsonify({'data': data_json})
@@ -383,8 +433,6 @@ def get_dates():
         print("Database error:", e)
     except Exception as e:
         return jsonify({'error': str(e)}), 500  # Return error message with status code 500 if an exception occurs
-
-
     
 if __name__ == '__main__':
     app.run(debug=True)

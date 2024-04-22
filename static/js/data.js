@@ -12,6 +12,7 @@ function pageLoaded() {
   let slots_taken = [];
 
   displayDiaryEntry(date);
+  retrieve_services()
 
   function displayDiaryEntry(date) {
     diaryEntryElement.innerHTML = '';
@@ -102,6 +103,7 @@ function pageLoaded() {
           
 
           if(username == 'admin'){
+
             if(data.data[i][4]){
               cont.style.backgroundColor = 'purple'
             }
@@ -118,6 +120,17 @@ function pageLoaded() {
         }
       }
     }
+  }
+
+  function populate_select(value, text){
+    
+    const select = document.getElementById('description')
+    const option = document.createElement('option')
+    // Set the value and text of the option
+    option.value = value; // Replace 'option_value' with the desired value
+    option.text = text; // Replace 'Option Text' with the desired text
+    select.appendChild(option)
+    
   }
   // Utility functions
   
@@ -200,6 +213,34 @@ function pageLoaded() {
     .then(data => {
     
       processData(data);
+  })
+    .catch(error => {
+  
+    });
+  
+  pageLoaded();
+
+}
+
+  function retrieve_services(){
+    fetch('/get_services_list', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: new URLSearchParams({
+        }),
+    })
+    .then(response => {
+      return response.json();
+      })
+    .then(data => {
+      for(service in data.data){
+        const service_id = data.data[service][0]
+        const service_name = data.data[service][1]
+        populate_select(service_id, service_name)
+      }
+
   })
     .catch(error => {
   
