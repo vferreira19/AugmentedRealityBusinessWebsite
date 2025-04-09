@@ -40,7 +40,7 @@ def login():
     return render_template('login.html')
     
 def register_user(username, password, phone, email_address):
-    conn = psycopg2.connect('postgres://fbwxshcw:3SfpQX-mjLRdwlEYMwSLxR7rKEZ8MQYO@flora.db.elephantsql.com/fbwxshcw')
+    conn = psycopg2.connect('https://izxjsjftlouhykxbctja.supabase.co')
     c = conn.cursor()
     hashed_password = hashlib.sha256(password.encode()).hexdigest()
     c.execute('INSERT INTO users (username, password, phone, email_address) VALUES (%s,%s,%s,%s)', (username, hashed_password, phone, email_address))
