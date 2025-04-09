@@ -4,7 +4,7 @@ from psycopg2.errors import UndefinedTable
 
 def create_connection():
         
-    return psycopg2.connect('postgres://fbwxshcw:3SfpQX-mjLRdwlEYMwSLxR7rKEZ8MQYO@flora.db.elephantsql.com/fbwxshcw')
+    return psycopg2.connect('https://izxjsjftlouhykxbctja.supabase.co')
 
 def insert(date, customer_name, description, time):
 
