@@ -2,6 +2,8 @@ import psycopg2
 from psycopg2 import sql
 from psycopg2.errors import UndefinedTable
 
+
+
 def create_connection():
         
     return psycopg2.connect('postgresql://postgres:testmydatabase1@db.izxjsjftlouhykxbctja.supabase.co:5432/postgres')
