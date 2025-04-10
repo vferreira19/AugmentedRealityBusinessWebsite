@@ -40,7 +40,7 @@ def login():
     return render_template('login.html')
     
 def register_user(username, password, phone, email_address):
-    conn = psycopg2.connect('postgres://fbwxshcw:3SfpQX-mjLRdwlEYMwSLxR7rKEZ8MQYO@flora.db.elephantsql.com/fbwxshcw')
+    conn = psycopg2.connect('postgresql://postgres:testmydatabase1@db.izxjsjftlouhykxbctja.supabase.co:5432/postgres')
     c = conn.cursor()
     hashed_password = hashlib.sha256(password.encode()).hexdigest()
     c.execute('INSERT INTO users (username, password, phone, email_address) VALUES (%s,%s,%s,%s)', (username, hashed_password, phone, email_address))
@@ -65,7 +65,7 @@ def register():
 
 def user_isUnique(username):
     try:
-        conn = psycopg2.connect('postgres://fbwxshcw:3SfpQX-mjLRdwlEYMwSLxR7rKEZ8MQYO@flora.db.elephantsql.com/fbwxshcw')
+        conn = psycopg2.connect('postgresql://postgres:testmydatabase1@db.izxjsjftlouhykxbctja.supabase.co:5432/postgres')
         c = conn.cursor()
         c.execute('SELECT username FROM users WHERE username=%s', (username,))
         output = c.fetchone()
@@ -81,7 +81,7 @@ def user_isUnique(username):
     
 def get_userID(username):
     try:
-        conn = psycopg2.connect('postgres://fbwxshcw:3SfpQX-mjLRdwlEYMwSLxR7rKEZ8MQYO@flora.db.elephantsql.com/fbwxshcw')
+        conn = psycopg2.connect('postgresql://postgres:testmydatabase1@db.izxjsjftlouhykxbctja.supabase.co:5432/postgres')
         c = conn.cursor()
         c.execute('SELECT user_id FROM users WHERE username=%s', (username,))
         output = c.fetchone()
@@ -94,7 +94,7 @@ def get_userID(username):
         return jsonify({'error': str(e)}), 500   
         
 def authenticate_user(username, password):
-    conn = psycopg2.connect('postgres://fbwxshcw:3SfpQX-mjLRdwlEYMwSLxR7rKEZ8MQYO@flora.db.elephantsql.com/fbwxshcw')
+    conn = psycopg2.connect('postgresql://postgres:testmydatabase1@db.izxjsjftlouhykxbctja.supabase.co:5432/postgres')
     c = conn.cursor()
     c.execute('SELECT password FROM users WHERE username=%s', (username,))
     stored_password = c.fetchone()
@@ -121,7 +121,7 @@ def customer_list():
 def get_customers():
     try:
        
-        conn = psycopg2.connect('postgres://fbwxshcw:3SfpQX-mjLRdwlEYMwSLxR7rKEZ8MQYO@flora.db.elephantsql.com/fbwxshcw')
+        conn = psycopg2.connect('postgresql://postgres:testmydatabase1@db.izxjsjftlouhykxbctja.supabase.co:5432/postgres')
         c = conn.cursor()
         c.execute('SELECT * FROM users where username !=%s', ('admin',))
         users = c.fetchall()
@@ -146,7 +146,7 @@ def get_bookings():
         if 'user_id' in session:
             user_id = session['user_id']
  
-        conn = psycopg2.connect('postgres://fbwxshcw:3SfpQX-mjLRdwlEYMwSLxR7rKEZ8MQYO@flora.db.elephantsql.com/fbwxshcw')
+        conn = psycopg2.connect('postgresql://postgres:testmydatabase1@db.izxjsjftlouhykxbctja.supabase.co:5432/postgres')
         c = conn.cursor()
     
         c.execute('SELECT * FROM booking where user_id=%s',(user_id,))
@@ -185,7 +185,7 @@ def retrieve_data():
         username = session.get('username', None)
         user_id = session.get('user_id', None)
 
-        conn = psycopg2.connect('postgres://fbwxshcw:3SfpQX-mjLRdwlEYMwSLxR7rKEZ8MQYO@flora.db.elephantsql.com/fbwxshcw')
+        conn = psycopg2.connect('postgresql://postgres:testmydatabase1@db.izxjsjftlouhykxbctja.supabase.co:5432/postgres')
         c = conn.cursor()
         c.execute('SELECT booking.time, users.username, users.phone, service_name, added_by_admin FROM booking INNER JOIN users ON users.user_id = booking.user_id INNER JOIN service ON service.service_id = booking.service_id WHERE booking.date = %s', 
     (date,)
@@ -209,7 +209,7 @@ def retrieve_data():
 def get_services():
     try:
  
-        conn = psycopg2.connect('postgres://fbwxshcw:3SfpQX-mjLRdwlEYMwSLxR7rKEZ8MQYO@flora.db.elephantsql.com/fbwxshcw')
+        conn = psycopg2.connect('postgresql://postgres:testmydatabase1@db.izxjsjftlouhykxbctja.supabase.co:5432/postgres')
         c = conn.cursor()
         c.execute('SELECT service_name FROM booking INNER JOIN service ON service.service_id = booking.service_id')
         data = c.fetchall()
@@ -242,7 +242,7 @@ def insert_data():
         description_lowerCase = description.lower()
         added_by_admin = False
         
-        conn = psycopg2.connect('postgres://fbwxshcw:3SfpQX-mjLRdwlEYMwSLxR7rKEZ8MQYO@flora.db.elephantsql.com/fbwxshcw')
+        conn = psycopg2.connect('postgresql://postgres:testmydatabase1@db.izxjsjftlouhykxbctja.supabase.co:5432/postgres')
         c = conn.cursor()
 
         if user_id == 1:
@@ -310,7 +310,7 @@ def customer_exists(id):
         try:
             users = []
             
-            conn = psycopg2.connect('postgres://fbwxshcw:3SfpQX-mjLRdwlEYMwSLxR7rKEZ8MQYO@flora.db.elephantsql.com/fbwxshcw')
+            conn = psycopg2.connect('postgresql://postgres:testmydatabase1@db.izxjsjftlouhykxbctja.supabase.co:5432/postgres')
             c = conn.cursor()
             c.execute('SELECT user_id FROM users')
             output = c.fetchall()
@@ -358,7 +358,7 @@ def send_whatsapp_message(recipient, message):
 @app.route('/get_services_list', methods=['POST'])
 def get_services_list():
         try:
-            conn = psycopg2.connect('postgres://fbwxshcw:3SfpQX-mjLRdwlEYMwSLxR7rKEZ8MQYO@flora.db.elephantsql.com/fbwxshcw')
+            conn = psycopg2.connect('postgresql://postgres:testmydatabase1@db.izxjsjftlouhykxbctja.supabase.co:5432/postgres')
             c = conn.cursor()
             c.execute('SELECT service_id, service_name FROM service')
             data = c.fetchall()
@@ -387,7 +387,7 @@ def insert_service():
         
     
         print('service:', data)
-        conn = psycopg2.connect('postgres://fbwxshcw:3SfpQX-mjLRdwlEYMwSLxR7rKEZ8MQYO@flora.db.elephantsql.com/fbwxshcw')
+        conn = psycopg2.connect('postgresql://postgres:testmydatabase1@db.izxjsjftlouhykxbctja.supabase.co:5432/postgres')
         c = conn.cursor()
         
         c.execute("INSERT INTO service (service_name) VALUES (%s)",(service,))
@@ -409,7 +409,7 @@ def get_dates():
     
     try:
 
-        conn = psycopg2.connect('postgres://fbwxshcw:3SfpQX-mjLRdwlEYMwSLxR7rKEZ8MQYO@flora.db.elephantsql.com/fbwxshcw')
+        conn = psycopg2.connect('postgresql://postgres:testmydatabase1@db.izxjsjftlouhykxbctja.supabase.co:5432/postgres')
         c = conn.cursor()
         c.execute('SELECT date FROM booking')
         data = c.fetchall()

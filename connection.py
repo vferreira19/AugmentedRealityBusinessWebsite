@@ -2,9 +2,11 @@ import psycopg2
 from psycopg2 import sql
 from psycopg2.errors import UndefinedTable
 
+
+
 def create_connection():
         
-    return psycopg2.connect('postgres://fbwxshcw:3SfpQX-mjLRdwlEYMwSLxR7rKEZ8MQYO@flora.db.elephantsql.com/fbwxshcw')
+    return psycopg2.connect('postgresql://postgres:testmydatabase1@db.izxjsjftlouhykxbctja.supabase.co:5432/postgres')
 
 def insert(date, customer_name, description, time):
 
